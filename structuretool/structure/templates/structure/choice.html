@@ -1,4 +1,14 @@
 {% extends "structure/base.html" %}
 {% block content %}
-    <h1>Windows or Curtain Wall</h1>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <a href="{% url 'windowOne' %}" class="btn btn-primary btn-xl" role="button">Windows</a>
+        </div>
+        
+        <div class="col-sm-6 col-md-4">
+            <a href="#" class="btn btn-primary btn-xl" role="button">Curtain Wall</a>
+        </div>
+    </div>
+
 {% endblock content %}

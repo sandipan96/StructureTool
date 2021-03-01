@@ -1,0 +1,29 @@
+{% extends "structure/base.html" %}
+{% block content %}
+    <!-- <table>
+        <tr>
+            <th>owner</th>
+            <th>projectCode</th>
+            <th>projectName</th>
+            <th>clientName</th>
+            <th>clientEmail</th>
+            <th>clientPhone</th>
+            <th>clientAddress</th>
+        </tr>
+        {% for item in query_results %}
+        <tr> 
+            <td>{{ item.owner }}</td>
+            <td>{{ item.projectCode }}</td>
+            <td>{{ item.projectName }}</td>
+            <td>{{ item.clientName }}</td>
+            <td>{{ item.clientEmail }}</td>
+            <td>{{ item.clientPhone }}</td>
+            <td>{{ item.clientAddress }}</td>
+        </tr>
+        {% endfor %}
+    </table> -->
+    {% load django_tables2 %}
+    {% render_table table %}
+
+
+{% endblock content %}

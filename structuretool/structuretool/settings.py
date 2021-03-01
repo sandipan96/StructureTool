@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
+    'django_tables2',
     'structure.apps.StructureConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,6 +125,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap.html"
 
 LOGIN_REDIRECT_URL = 'structure-choice'
 

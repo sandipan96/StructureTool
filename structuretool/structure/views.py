@@ -1,7 +1,7 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.template import Context
 from .forms import ProjectDetailsForm
 from .models import ProjectDetails, SimpleTable
 
@@ -12,6 +12,29 @@ def home(request):
 @login_required
 def choicePage(request):
     return render(request, 'structure/choice.html')
+
+@login_required
+def projectList(request):
+    query_results = ProjectDetails.objects.all()
+    user = request.user
+    filtered_results = query_results.filter(owner = user)
+    #table = SimpleTable(filtered_results)
+    #context = {'table' : table}
+    context = {'filtered' : filtered_results}
+    return render(request, 'structure/projectList.html', context)   
+
+
+class ProjectListView(ListView):
+    model = ProjectDetails
+    template_name = 'structure/projectList.html'
+    context_object_name = 'filtered_results'
+    
+    def get_queryset(self):
+        return ProjectDetails.objects.filter(owner = self.request.user)
+
+class ProjectDetailView(DetailView):
+    model = ProjectDetails
+
 
 @login_required
 def windowOne(request):

@@ -1,0 +1,25 @@
+{% extends "structure/base.html" %}
+{% block content %}
+    <table>
+        <tr>
+            <th>projectCode</th>
+            <th>projectName</th>
+            <th>clientName</th>
+            <th>clientEmail</th>
+            <th>clientPhone</th>
+            <th>clientAddress</th>
+        </tr>
+        {% for item in filtered_results %}
+        <tr> 
+            <td>{{ item.projectCode }}</a></td>
+            <td><a href = "{% url 'ProjectDetails-detail' item.id %}">{{ item.projectName }}</a></td>
+            <td>{{ item.clientName }}</td>
+            <td>{{ item.clientEmail }}</td>
+            <td>{{ item.clientPhone }}</td>
+            <td>{{ item.clientAddress }}</td>
+        </tr>
+        {% endfor %}
+    </table> 
+   
+
+{% endblock content %}

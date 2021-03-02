@@ -82,3 +82,10 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+  table, th, td {
+    border: 1px solid black;
+    width: 100%;
+    padding: 15px;
+    text-align: left;
+  }

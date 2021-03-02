@@ -28,5 +28,11 @@ class SimpleTable(tables.Table):
 class AlloyGrade(models.Model):
     alloygrade = models.CharField(max_length = 20)
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.alloygrade
+
+    def get_absolute_url(self):
+        return reverse('structureCalc', kwargs = {'pk' : self.pk})   
 
 

@@ -1,36 +1,50 @@
 {% extends "structure/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     <h1>Structural Calculation</h1>
     <label for="alloygrade">Alluminium Alloy Grade:</label>
-    <select id = "alloygrade">
-        {% for result in filtered_alloy %}
+    <select name = "alloygrade" class = "form-control">
+        {% for result in objects %}
         <option>{{ result.alloygrade }}</option>
         {% endfor %}
     </select>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+
+    <a href = "" data-toggle = "modal" data-target = "#addAlloy">Add Alloy</a>
+    <form method = "POST">
+        {% csrf_token %}
+        <div class="modal" tabindex="-1" id = "addAlloy">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add a new Alluminium Alloy Grade</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>{{form|crispy}}</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-            ...
+          </div>
+    </form>
+
+    <!-- <div class = "content-section">
+        <form method = "POST">
+            {% csrf_token %}
+            <fieldset class = "form-group">
+                <legend class = "border-bottom mb-4"> Create Project</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class = "form-group">
+                <button class = "btn btn-outline-info" type="submit"> Save </button>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-        </div>
+        </form>
     </div>
+    -->
     
 {% endblock content %}

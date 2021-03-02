@@ -131,3 +131,5 @@ DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap.html"
 LOGIN_REDIRECT_URL = 'structure-choice'
 
 LOGIN_URL = 'login'
+
+

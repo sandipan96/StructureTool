@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
+from django.urls import reverse
 import django_tables2 as tables
 
 class ProjectDetails(models.Model):
@@ -14,6 +15,11 @@ class ProjectDetails(models.Model):
 
     def __str__(self):
         return self.projectName
+
+    def get_absolute_url(self):
+        return reverse('ProjectDetails-detail', kwargs = {'pk' : self.pk})    
+
+
 
 class SimpleTable(tables.Table):
     class Meta:

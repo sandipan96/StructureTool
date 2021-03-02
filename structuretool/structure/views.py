@@ -77,20 +77,3 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == projectDetail.owner:
             return True
         return False              
-
-@login_required
-def windowOne(request):
-    form = ProjectDetailsForm(request.POST)
-    if form.is_valid():
-        form.save()
-    context = {'form' : form}    
-    return render(request, 'structure/windowOne.html', context)
-
-@login_required
-def viewProjectTable(request):
-    query_results = ProjectDetails.objects.all()
-    user = request.user
-    filtered_results = query_results.filter(owner = user)
-    table = SimpleTable(filtered_results)
-    context = {'table' : table}
-    return render(request, 'structure/projectTable.html', context)

@@ -20,7 +20,13 @@ class ProjectDetails(models.Model):
         return reverse('ProjectDetails-detail', kwargs = {'pk' : self.pk})    
 
 
-
 class SimpleTable(tables.Table):
     class Meta:
         model = ProjectDetails
+
+
+class AlloyGrade(models.Model):
+    alloygrade = models.CharField(max_length = 20)
+    owner = models.ForeignKey(User, on_delete = models.CASCADE)
+
+

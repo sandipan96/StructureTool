@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProjectDetailsForm
-from .models import ProjectDetails, SimpleTable
+from .models import ProjectDetails, SimpleTable, AlloyGrade
 
 
 def home(request):
@@ -77,3 +77,19 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == projectDetail.owner:
             return True
         return False              
+
+def structureCalc(request,pk):
+    query_results = AlloyGrade.objects.all()
+    user = request.user
+    filtered_alloy = query_results.filter(owner = user)
+    context = {'filtered' : filtered_alloy}
+    return render(request,'structure/structureCalc.html', context)
+
+class AlloyListView(ListView):
+    model = AlloyGrade
+    template_name = 'structure/structureCalc.html'
+    context_object_name = 'filtered_alloy'
+    
+    def get_queryset(self):
+        return AlloyGrade.objects.filter(owner = self.request.user)
+   

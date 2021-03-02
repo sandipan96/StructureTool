@@ -5,7 +5,8 @@ from .views import (
     ProjectDetailView, 
     ProjectCreateView,
     ProjectUpdateView,
-    ProjectDeleteView
+    ProjectDeleteView,
+    AlloyListView
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path('choice/projectList/<int:pk>/update/',ProjectUpdateView.as_view(), name = 'ProjectDetails-update'),
     path('choice/projectList/<int:pk>/delete/',ProjectDeleteView.as_view(), name = 'ProjectDetails-delete'),
     path('choice/projectList/new/',ProjectCreateView.as_view(), name = 'ProjectDetails-create'),
+    path('choice/projectList/<int:pk>/structureCalc/',AlloyListView.as_view(), name = 'structureCalc'),
 ]

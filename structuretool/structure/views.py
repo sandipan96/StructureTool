@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.views.generic import (
     ListView, 
     DetailView,
-    CreateView
+    CreateView,
+    UpdateView
 )
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProjectDetailsForm
 from .models import ProjectDetails, SimpleTable
 
@@ -37,8 +38,13 @@ class ProjectListView(ListView):
     def get_queryset(self):
         return ProjectDetails.objects.filter(owner = self.request.user)
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(UserPassesTestMixin, DetailView):
     model = ProjectDetails
+    def test_func(self):
+        projectDetail = self.get_object()
+        if self.request.user == projectDetail.owner:
+            return True
+        return False  
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = ProjectDetails
@@ -48,6 +54,19 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ProjectDetails
+    fields= ["projectCode","projectName","clientName","clientEmail","clientPhone","clientAddress"] 
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        projectDetail = self.get_object()
+        if self.request.user == projectDetail.owner:
+            return True
+        return False      
 
 @login_required
 def windowOne(request):

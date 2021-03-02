@@ -3,7 +3,8 @@ from django.views.generic import (
     ListView, 
     DetailView,
     CreateView,
-    UpdateView
+    UpdateView,
+    DeleteView
 )
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -66,7 +67,16 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         projectDetail = self.get_object()
         if self.request.user == projectDetail.owner:
             return True
-        return False      
+        return False  
+
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = ProjectDetails
+    success_url = '/choice/projectList/'
+    def test_func(self):
+        projectDetail = self.get_object()
+        if self.request.user == projectDetail.owner:
+            return True
+        return False              
 
 @login_required
 def windowOne(request):

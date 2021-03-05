@@ -88,3 +88,9 @@ body {
     padding: 15px;
     text-align: center;
   } 
+
+  .label2 {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+  }

@@ -2,6 +2,8 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <h1>Structural Calculation</h1>
+    <h2> Material Specifications </h2>
+
     <label for="alloygrade">Alluminium Alloy Grade:</label>
     <select name = "alloygrade" class = "form-control">
         {% for result in objects %}
@@ -32,6 +34,101 @@
             </div>
           </div>
     </form>
+
+    <label for="matStr">Material Strength of Alloy according to:</label>
+    {% for result in mats %}
+      <select name = "matStr" class = "form-control">
+          <option>{{ result.name}}</option>
+      </select>
+      <p>Permissible Bending Stress : {{ result.bendStress }} kg/cm<sup>2</sup></p>
+    {% endfor %}
+    <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
+    <p>
+      Maximum Allowable Deflection (f<sub>m</sub>): l/ 
+      <select>
+        <option> 75 </option>
+        <option> 100 </option>
+        <option> 125 </option>
+        <option> 150 </option>
+        <option> 175 </option>
+        <option> 200 </option>
+        <option> 225 </option>
+        <option> 250 </option>
+        <option> 275 </option>
+        <option> 300 </option>
+      </select>
+      or
+      <input type="number" max = "23">
+      mm   (whichever is less)
+    </p>
+    <p>
+      Design Wind Load : 
+      P = <input id = "windLoad" type = "number" oninput="lengthConverter(this.value)"> Pa
+        or <span id = "output"></span> kg/cm
+    </p>
+    <p>
+      Type of Loading : 
+      <select>
+        <option> Rectangular </option>
+        <option> Trapezoidal </option>
+      </select>
+    </p>
+    <p>
+      Load Increase Coefficient
+      <label>&gamma;<sub>s</sub> = </label>
+      <input type = "float">
+    </p>
+    <p>
+      Material Decrease Coefficient
+      <label>&gamma;<sub>m</sub> = </label>
+      <input type = "float">
+    </p>
+    <p>
+      Unsupported Strength
+      <label> l = </label>
+      <input type = "float"> m
+    </p>
+    <p>
+      Left Panel Width
+      <label> a = </label>
+      <input type = "float"> m
+    </p>
+    <p>
+      Right Panel Width
+      <label> b = </label>
+      <input type = "float"> m
+    </p>
+
+
+    <script>
+      function lengthConverter(valNum) {
+        document.getElementById("output").innerHTML=valNum/100000;
+      }
+    </script>
+    <!-- <a href = "" data-toggle = "modal" data-target = "#addMatStr">Add Alloy</a>
+    <form method = "POST">
+        {% csrf_token %}
+        <div class="modal" tabindex="-1" id = "addMatStr">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add a new Alluminium Alloy Grade</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>{{form|crispy}}</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </form> -->
+
 
     <!-- <div class = "content-section">
         <form method = "POST">

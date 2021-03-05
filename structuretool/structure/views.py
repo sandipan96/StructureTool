@@ -9,8 +9,9 @@ from django.views.generic import (
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ProjectDetailsForm
-from .models import ProjectDetails, SimpleTable, AlloyGrade
+from .forms import ProjectDetailsForm, MatStrengthForm
+from .models import ProjectDetails, SimpleTable, AlloyGrade, MatStrength
+from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 
 def home(request):
@@ -80,9 +81,11 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def structureCalc(request,pk):
     query_results = AlloyGrade.objects.all()
+    query_result2 = MatStrength.objects.all()
     user = request.user
     alloy = query_results.filter(owner = user)
-    context = {'alloy' : alloy}
+    matStr = query_result2.filter(owner = user)
+    context = {'alloy' : alloy, 'matStr' : matStr}
     return render(request,'structure/structureCalc.html', context)
 
 # class AlloyListView(ListView):
@@ -96,6 +99,7 @@ def structureCalc(request,pk):
 class AlloyListCreate(LoginRequiredMixin, CreateView):
     model = AlloyGrade
     fields= ["alloygrade"] 
+    model2 = MatStrength
     template_name = 'structure/structureCalc.html'
 
     def get_queryset(self):
@@ -108,4 +112,8 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["objects"] = self.model.objects.all().filter(owner = self.request.user)
+        context["mats"] = self.model2.objects.all().filter(owner = self.request.user)
         return context
+
+
+

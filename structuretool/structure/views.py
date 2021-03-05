@@ -116,4 +116,5 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-
+def structSpecs(request,pk):
+    return render(request,'structure/structSpecs.html')

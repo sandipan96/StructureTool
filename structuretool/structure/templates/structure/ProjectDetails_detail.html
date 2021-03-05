@@ -1,14 +1,18 @@
 {% extends "structure/base.html" %}
 {% block content %}
+    <div class = 'content-section'>
+        <h2 class = 'display-3'> Project Details </h2>
+        <hr class="style2">
+        <h3>Project Code : {{object.projectCode}}</h3>
+        <h3>Project Name : {{object.projectName}}</h3>
+        <h3>Client Name : {{object.clientName}}</h3>
+        <h3>Client Email : {{object.clientEmail}}</h3>
+        <h3>Client Phone : {{object.clientPhone}}</h3>
+        <h3>Client Address : {{object.clientAddress}}</h3>
+        <p></p>
+        <a class = "btn btn-secondary" href = "{% url 'ProjectDetails-update' object.id %}"> Update </a>
+        <a class = "btn btn-danger" href = "{% url 'ProjectDetails-delete' object.id %}"> Delete </a>
+        <a class = "btn btn-secondary" href = "{% url 'structureCalc' object.id %}"> Next -> </a>
+    </div>
 
-    <h2>Project Code : {{object.projectCode}}</h2>
-    <h2>Project Name : {{object.projectName}}</h2>
-    <h2>Client Name : {{object.clientName}}</h2>
-    <h2>Client Email : {{object.clientEmail}}</h2>
-    <h2>Client Phone : {{object.clientPhone}}</h2>
-    <h2>Client Address : {{object.clientAddress}}</h2>
-    <p></p>
-    <a class = "btn btn-secondary" href = "{% url 'ProjectDetails-update' object.id %}"> Update </a>
-    <a class = "btn btn-danger" href = "{% url 'ProjectDetails-delete' object.id %}"> Delete </a>
-    <a class = "btn btn-secondary" href = "{% url 'structureCalc' object.id %}"> Next -> </a>
 {% endblock content %}

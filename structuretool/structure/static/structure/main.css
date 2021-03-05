@@ -94,3 +94,39 @@ body {
     width: 150px;
     text-align: right;
   }
+
+  .dropdown {
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .canvasRight {
+    position: absolute;
+    right: 0px;
+    top: 650px;
+    width: 200px;
+    
+  }
+
+  .content-section2 {
+    background: #fafafa;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    position : relative;
+    right : -500px;
+    top : -175px;
+  }
+
+  .headspace {
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+  .display-3{
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+  .style2 {
+    border-top: 3px double #8c8b8b;
+    padding-bottom: 10px;
+  }

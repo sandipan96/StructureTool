@@ -18,4 +18,5 @@ urlpatterns = [
     path('choice/projectList/<int:pk>/delete/',ProjectDeleteView.as_view(), name = 'ProjectDetails-delete'),
     path('choice/projectList/new/',ProjectCreateView.as_view(), name = 'ProjectDetails-create'),
     path('choice/projectList/<int:pk>/structureCalc/',AlloyListCreate.as_view(), name = 'structureCalc'),
+    path('choice/projectList/<int:pk>/structureCalc/structSpecs',views.structSpecs, name = 'structSpecs'),
 ]

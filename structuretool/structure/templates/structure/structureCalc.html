@@ -1,17 +1,19 @@
 {% extends "structure/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h1>Structural Calculation</h1>
-    <h2> Material Specifications </h2>
+    <h1 style = "text-align:center" class = "display-3">Structural Calculation</h1>
+    <h4> Material Specifications </h4>
+    <div class = "dropdown">
+      <label for="alloygrade">Alluminium Alloy Grade:</label>
+      <select name = "alloygrade" class = "form-control">
+          {% for result in objects %}
+          <option>{{ result.alloygrade }}</option>
+          {% endfor %}
+      </select>
+    </div>
 
-    <label for="alloygrade">Alluminium Alloy Grade:</label>
-    <select name = "alloygrade" class = "form-control">
-        {% for result in objects %}
-        <option>{{ result.alloygrade }}</option>
-        {% endfor %}
-    </select>
+    <button class = "btn btn-secondary" a href = "" data-toggle = "modal" data-target = "#addAlloy">Add Alloy</a></button>
 
-    <a href = "" data-toggle = "modal" data-target = "#addAlloy">Add Alloy</a>
     <form method = "POST">
         {% csrf_token %}
         <div class="modal" tabindex="-1" id = "addAlloy">
@@ -34,14 +36,18 @@
             </div>
           </div>
     </form>
-
-    <label for="matStr">Material Strength of Alloy according to:</label>
+    
+    
     {% for result in mats %}
-      <select name = "matStr" class = "form-control">
+      <div class = "dropdown">
+        <label for="matStr">Material Strength of Alloy according to:</label>
+        <select name = "matStr" class = "form-control">
           <option>{{ result.name}}</option>
-      </select>
+        </select>
+      </div>
       <p>Permissible Bending Stress : {{ result.bendStress }} kg/cm<sup>2</sup></p>
     {% endfor %}
+
     <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
     <p>
       Maximum Allowable Deflection (f<sub>m</sub>): l/ 
@@ -98,15 +104,20 @@
       <label> b = </label>
       <input type = "float" name = "rwidth" id = "rwidth"> m
     </p>
+    <p>
+      <button class = "btn btn-secondary" onclick="draw()">Show Diagram</button>
+      <a class = "btn btn-secondary" href = "structSpecs"> Continue -> </a>
+    </p>
 
-    <button onclick="draw()">Show Diagram</button>
     <p></p>
-    <div class = "row">
-      <canvas id = "myCanvas1" height = "100" width = "100" style="border:1px solid #c3c3c3;"></canvas>
-      <canvas id = "myCanvas2" height = "100" width = "100" style="border:1px solid #c3c3c3;"></canvas>
+    <div class = "content-section2">
+      <div class = "row">
+        <canvas id = "myCanvas1" height = "100" width = "100" style="border:1px solid #c3c3c3;"></canvas>
+        <canvas id = "myCanvas2" height = "100" width = "100" style="border:1px solid #c3c3c3;"></canvas>
+      </div>
     </div>
     
-    
+  
 
     <script>
       function lengthConverter(valNum) {
@@ -118,18 +129,18 @@
         var lwidth = document.getElementById('lwidth').value;
         var length = document.getElementById('length').value;
         var ctx = canvas1.getContext("2d");
-        ctx.canvas.width  = lwidth * 100;
+        ctx.canvas.width  = lwidth * 50;
         ctx.canvas.height = length * 100;
         ctx.fillStyle = "#808080";
-        ctx.fillRect((lwidth * 100)/2,0,(lwidth * 100 /2),(length * 100));
+        ctx.fillRect((lwidth * 50)/2,0,(lwidth * 50 /2),(length * 100));
 
         var canvas2 = document.getElementById("myCanvas2");
         var rwidth = document.getElementById('rwidth').value;
         var ctx2 = canvas2.getContext("2d");
-        ctx2.canvas.width  = rwidth * 100;
+        ctx2.canvas.width  = rwidth * 50;
         ctx2.canvas.height = length * 100;
         ctx2.fillStyle = "#808080";
-        ctx2.fillRect(0,0,(rwidth * 100/2),(length * 100));
+        ctx2.fillRect(0,0,(rwidth * 50/2),(length * 100));
       }
       
     </script>
@@ -173,5 +184,7 @@
         </form>
     </div>
     -->
+
+
     
 {% endblock content %}

@@ -84,27 +84,57 @@
       <input type = "float">
     </p>
     <p>
-      Unsupported Strength
+      Unsupported Length
       <label> l = </label>
-      <input type = "float"> m
+      <input type = "float" name = "length" id = "length"> m
     </p>
     <p>
       Left Panel Width
       <label> a = </label>
-      <input type = "float"> m
+      <input type = "float" name = "lwidth" id = "lwidth"> m
     </p>
     <p>
       Right Panel Width
       <label> b = </label>
-      <input type = "float"> m
+      <input type = "float" name = "rwidth" id = "rwidth"> m
     </p>
 
+    <button onclick="draw()">Show Diagram</button>
+    <p></p>
+    <div class = "row">
+      <canvas id = "myCanvas1" height = "100" width = "100" style="border:1px solid #c3c3c3;"></canvas>
+      <canvas id = "myCanvas2" height = "100" width = "100" style="border:1px solid #c3c3c3;"></canvas>
+    </div>
+    
+    
 
     <script>
       function lengthConverter(valNum) {
         document.getElementById("output").innerHTML=valNum/100000;
       }
+
+      function draw() {
+        var canvas1 = document.getElementById("myCanvas1");
+        var lwidth = document.getElementById('lwidth').value;
+        var length = document.getElementById('length').value;
+        var ctx = canvas1.getContext("2d");
+        ctx.canvas.width  = lwidth * 100;
+        ctx.canvas.height = length * 100;
+        ctx.fillStyle = "#808080";
+        ctx.fillRect((lwidth * 100)/2,0,(lwidth * 100 /2),(length * 100));
+
+        var canvas2 = document.getElementById("myCanvas2");
+        var rwidth = document.getElementById('rwidth').value;
+        var ctx2 = canvas2.getContext("2d");
+        ctx2.canvas.width  = rwidth * 100;
+        ctx2.canvas.height = length * 100;
+        ctx2.fillStyle = "#808080";
+        ctx2.fillRect(0,0,(rwidth * 100/2),(length * 100));
+      }
+      
     </script>
+
+    
     <!-- <a href = "" data-toggle = "modal" data-target = "#addMatStr">Add Alloy</a>
     <form method = "POST">
         {% csrf_token %}

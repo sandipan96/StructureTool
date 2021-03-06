@@ -74,7 +74,7 @@
     </p>
     <p>
       Type of Loading : 
-      <select>
+      <select name = "shapeChoice" id = "shapeChoice">
         <option> Rectangular </option>
         <option> Trapezoidal </option>
       </select>
@@ -125,22 +125,51 @@
       }
 
       function draw() {
+        var shape = document.getElementById("shapeChoice");
         var canvas1 = document.getElementById("myCanvas1");
         var lwidth = document.getElementById('lwidth').value;
         var length = document.getElementById('length').value;
-        var ctx = canvas1.getContext("2d");
-        ctx.canvas.width  = lwidth * 50;
-        ctx.canvas.height = length * 100;
-        ctx.fillStyle = "#808080";
-        ctx.fillRect((lwidth * 50)/2,0,(lwidth * 50 /2),(length * 100));
-
         var canvas2 = document.getElementById("myCanvas2");
         var rwidth = document.getElementById('rwidth').value;
+        var ctx = canvas1.getContext("2d");
         var ctx2 = canvas2.getContext("2d");
-        ctx2.canvas.width  = rwidth * 50;
-        ctx2.canvas.height = length * 100;
-        ctx2.fillStyle = "#808080";
-        ctx2.fillRect(0,0,(rwidth * 50/2),(length * 100));
+
+        if (shape.value == "Rectangular") {
+          
+          ctx.canvas.width  = lwidth * 100;
+          ctx.canvas.height = length * 100;
+          ctx.fillStyle = "#808080";
+          ctx.fillRect((lwidth * 100)/2,0,(lwidth * 100 /2),(length * 100));
+
+          ctx2.canvas.width  = rwidth * 100;
+          ctx2.canvas.height = length * 100;
+          ctx2.fillStyle = "#808080";
+          ctx2.fillRect(0,0,(rwidth * 100/2),(length * 100));
+        } else if (shape.value == "Trapezoidal") {
+            ctx.canvas.width  = lwidth * 100;
+            ctx.canvas.height = length * 100;
+            ctx.fillStyle = "#808080";
+            ctx.beginPath();
+            ctx.moveTo(lwidth*100,length*100);
+            ctx.lineTo(lwidth*100*0.5,length*100*0.75);
+            ctx.lineTo(lwidth*100*0.5,length*100*0.25);
+            ctx.lineTo(lwidth*100,length-length);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.fill();
+
+            ctx2.canvas.width  = rwidth * 100;
+            ctx2.canvas.height = length * 100;
+            ctx2.fillStyle = "#808080";
+            ctx2.beginPath();
+            ctx2.moveTo(rwidth-rwidth,length-length);
+            ctx2.lineTo(rwidth*100*0.5,length*100*0.25);
+            ctx2.lineTo(rwidth*100*0.5,length*100*0.75);
+            ctx2.lineTo(rwidth-rwidth,length*100);
+            ctx2.closePath();
+            ctx2.stroke();
+            ctx2.fill();
+        }
       }
       
     </script>

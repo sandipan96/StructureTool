@@ -1,14 +1,22 @@
 {% extends "structure/base.html" %}
 {% block content %}
-
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
-            <a href="{% url 'projectList' %}" class="btn btn-primary btn-xl" role="button">Windows</a>
-        </div>
+    {%load static%}
+    <div class = "choiceHeader">
+        <h1 class = "display-3">Welcome!</h1>
+    </div>
+    
+    <div class="content-section3">
+        <img src="{% static "structure/windows.jpg" %}" class="rounded float-left" alt="Responsive image" style="width:616px;height:341px;">
         
-        <div class="col-sm-6 col-md-4">
-            <a href="#" class="btn btn-primary btn-xl" role="button">Curtain Wall</a>
-        </div>
+        <img src="{% static "structure/curtainWalls.jpg" %}" class="rounded float-right" alt="Responsive image" style="width:616px;height:341px;">
+       
+        
+    </div>
+    <div class = "imgButton2">
+        <a href="#" class="btn btn-primary btn-lg" role="button">Curtain Wall</a>
+    </div>
+    <div class = "imgButton">
+        <a href="{% url 'projectList' %}" class="btn btn-primary btn-lg" role="button">Windows</a>
     </div>
 
 {% endblock content %}

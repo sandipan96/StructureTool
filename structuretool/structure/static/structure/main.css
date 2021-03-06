@@ -115,7 +115,19 @@ body {
     margin-bottom: 20px;
     position : relative;
     right : -500px;
-    top : -175px;
+    top : -200px;
+  }
+
+  .content-section3 {
+    background: #5f788a;
+    width: 1300px;
+    height: 360px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    position : relative;
+    right : 100px;
+    top : 100px;
   }
 
   .headspace {
@@ -130,3 +142,20 @@ body {
     border-top: 3px double #8c8b8b;
     padding-bottom: 10px;
   }
+  .imgButton{
+    position: relative;
+    right : -150px;
+    top : -18px;
+  }
+  .imgButton2{
+    position: relative;
+    right : -800px;
+    top : 31px;
+  }
+
+  .choiceHeader{
+    position: relative;
+    right : -380px;
+
+  }
+

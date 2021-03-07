@@ -114,7 +114,13 @@
       <div class = "row">
         <canvas id = "myCanvas1" height = "100" width = "100" style="border:1px solid #0c0202;"></canvas>
         <canvas id = "myCanvas2" height = "100" width = "100" style="border:1px solid #0c0202;"></canvas>
+        <canvas id = "myCanvas5" height = "100" width = "100" style="border:none;"></canvas>
       </div>
+      <div class = "row">
+        <canvas id = "myCanvas3" class = "labelCanvas" height = "100" width = "100" style="border:none;"></canvas>
+        <canvas id = "myCanvas4" class = "labelCanvas2" height = "100" width = "100" style="border:none;"></canvas>
+      </div>
+      
     </div>
     
   
@@ -133,6 +139,12 @@
         var rwidth = document.getElementById('rwidth').value;
         var ctx = canvas1.getContext("2d");
         var ctx2 = canvas2.getContext("2d");
+        var canvas3 = document.getElementById("myCanvas3");
+        var ctx3 = canvas3.getContext("2d");
+        var canvas4 = document.getElementById("myCanvas4");
+        var ctx4 = canvas4.getContext("2d");
+        var canvas5 = document.getElementById("myCanvas5");
+        var ctx5 = canvas5.getContext("2d");
 
         if (shape.value == "Rectangular") {
           
@@ -140,11 +152,18 @@
           ctx.canvas.height = length * 100;
           ctx.fillStyle = "#808080";
           ctx.fillRect((lwidth * 100)/2,0,(lwidth * 100 /2),(length * 100));
+          ctx3.canvas.width = lwidth * 100;
+          drawHLabel(ctx3,lwidth,"a");
+          ctx5.canvas.height = length * 100;
+          drawVLabel(ctx5,length);
 
           ctx2.canvas.width  = rwidth * 100;
           ctx2.canvas.height = length * 100;
           ctx2.fillStyle = "#808080";
           ctx2.fillRect(0,0,(rwidth * 100/2),(length * 100));
+          ctx4.canvas.width = rwidth * 100;
+          drawHLabel(ctx4,rwidth,"b");        
+          
         } else if (shape.value == "Trapezoidal") {
             ctx.canvas.width  = lwidth * 100;
             ctx.canvas.height = length * 100;
@@ -157,6 +176,10 @@
             ctx.closePath();
             ctx.stroke();
             ctx.fill();
+            ctx3.canvas.width = lwidth * 100;
+            drawHLabel(ctx3,lwidth,"a");
+            ctx5.canvas.height = length * 100;
+            drawVLabel(ctx5,length);
 
             ctx2.canvas.width  = rwidth * 100;
             ctx2.canvas.height = length * 100;
@@ -169,9 +192,40 @@
             ctx2.closePath();
             ctx2.stroke();
             ctx2.fill();
+            ctx4.canvas.width = rwidth * 100;
+            drawHLabel(ctx4,rwidth,"b");
         }
+
       }
-      
+      function drawHLabel(context,width,panel){
+        context.beginPath();
+        context.moveTo(0,5);
+        context.lineTo(0,15);
+        context.moveTo(0,10);
+        context.lineTo(width*100,10);
+        context.moveTo(width*100,5);
+        context.lineTo(width*100,15);
+        context.closePath();
+        context.stroke();
+        context.font="12px Arial";
+        context.fillStyle = "red";
+        context.textAlign = "center";
+        context.fillText(panel + " = " + width + "m", (width/2) * 100, 25);
+      }
+      function drawVLabel(context,height){
+        context.beginPath();
+        context.moveTo(5,0);
+        context.lineTo(15,0);
+        context.moveTo(10,0);
+        context.lineTo(10,height*100);
+        context.moveTo(15,height*100);
+        context.lineTo(5,height*100);
+        context.stroke();
+        context.font="12px Arial";
+        context.fillStyle = "red";
+        context.textAlign = "center";
+        context.fillText("l = " + height + "m", 40, (height * 100)/2);
+      }  
     </script>
 
     

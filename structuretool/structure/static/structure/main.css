@@ -111,10 +111,11 @@ body {
   .content-section2 {
     background: #fafafa;
     padding: 10px 20px;
+    width : 1500px;
     border-radius: 3px;
     margin-bottom: 20px;
     position : relative;
-    right : -500px;
+    right : -400px;
     top : -200px;
   }
 
@@ -157,5 +158,13 @@ body {
     position: relative;
     right : -380px;
 
+  }
+  .labelCanvas{
+    position: relative;
+    right : 0px;
+  }
+  .labelCanvas2{
+    position: relative;
+    right : -5px;
   }
 

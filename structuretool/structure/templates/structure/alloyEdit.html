@@ -1,6 +1,6 @@
 {% extends "structure/base.html" %}
 {% block content %}
-    <h1>Add or Delete Alloy Grade here!</h1>
+<h4 style = "text-align:center; padding-bottom:10px">Add a new Alloy Grade or delete an existing one!</h1>
         <table class = "table table-striped">
             <thead>
                 <tr>
@@ -15,6 +15,8 @@
                 </tr>
                 {% endfor %}
             </tbody>   
-        </table> 
+        </table>
+        <a class = "btn btn-secondary" href = "../"> 	&#8592; Return </a>
+
     
 {% endblock content %}

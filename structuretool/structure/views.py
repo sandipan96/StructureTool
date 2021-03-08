@@ -126,9 +126,10 @@ def structSpecs(request,pk):
 
 def alloyEdit(request,pk):
     query_results = AlloyGrade.objects.all()
+    project_results = ProjectDetails.objects.all()
     user = request.user
     alloygrades = query_results.filter(owner = user)
-    context = {'alloy' : alloygrades}
+    context = {'alloy' : alloygrades, 'project_results' : project_results}
     return render(request,'structure/alloyEdit.html',context)
 
 
@@ -150,10 +151,6 @@ class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == alloyGrade.owner:
             return True
         return False
-
-    #def delete(self, *args, **kwargs):
-        #self.object = self.get_object()    
-        #super().delete(*args, **kwargs)
 
     def get_success_url(self):
         alloygrade = self.object.alloygrade

@@ -33,7 +33,7 @@ class AlloyGrade(models.Model):
         return self.alloygrade
 
     def get_absolute_url(self):
-        return reverse('structureCalc', kwargs = {'pk' : self.pk})   
+        return reverse('alloyEdit', kwargs = {'pk' : self.pk})   
 
 
 class MatStrength(models.Model):

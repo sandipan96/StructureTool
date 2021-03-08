@@ -115,11 +115,8 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["objects"] = self.model.objects.all().filter(owner = self.request.user)
         context["mats"] = self.model2.objects.all().filter(owner = self.request.user)
-        context["selected"] = self.request.POST.get('alloygrade')
         return context
-'''
-  
-'''         
+        
 
 def structSpecs(request,pk):
     return render(request,'structure/structSpecs.html')
@@ -129,18 +126,28 @@ def alloyEdit(request,pk):
     project_results = ProjectDetails.objects.all()
     user = request.user
     alloygrades = query_results.filter(owner = user)
-    context = {'alloy' : alloygrades, 'project_results' : project_results}
+    context = {'alloy' : alloygrades}
     return render(request,'structure/alloyEdit.html',context)
 
 
 
-class AlloyListView(ListView):
-    model = ProjectDetails
+class AlloyListView(CreateView):
+    model = AlloyGrade
+    fields= ["alloygrade"] 
     template_name = 'structure/alloyEdit.html'
-    context_object_name = 'alloygrades'
     
     def get_queryset(self):
         return AlloyGrade.objects.filter(owner = self.request.user)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["objects"] = self.model.objects.all().filter(owner = self.request.user)
+        return context    
+        
 
 class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = AlloyGrade

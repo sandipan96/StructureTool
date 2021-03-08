@@ -1,0 +1,19 @@
+{% extends "structure/base.html" %}
+{% block content %}
+    <h1>Add or Delete Alloy Grade here!</h1>
+        <table class = "table table-striped">
+            <thead>
+                <tr>
+                    <th scope = "col">Alloy Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in alloygrades %}
+                <tr> 
+                    <td>{{ item.alloygrade}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>   
+        </table> 
+    
+{% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import (
     ListView, 
     DetailView,
@@ -7,6 +7,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.http import HttpResponse
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProjectDetailsForm, MatStrengthForm
@@ -82,10 +83,11 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def structureCalc(request,pk):
     query_results = AlloyGrade.objects.all()
     query_result2 = MatStrength.objects.all()
+    selectVal = request.GET['alloygrade']
     user = request.user
     alloy = query_results.filter(owner = user)
     matStr = query_result2.filter(owner = user)
-    context = {'alloy' : alloy, 'matStr' : matStr}
+    context = {'alloy' : alloy, 'matStr' : matStr,'selectVal' : selectVal}
     return render(request,'structure/structureCalc.html', context)
 
 # class AlloyListView(ListView):
@@ -113,8 +115,35 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["objects"] = self.model.objects.all().filter(owner = self.request.user)
         context["mats"] = self.model2.objects.all().filter(owner = self.request.user)
+        context["selected"] = self.request.POST.get('alloygrade')
         return context
+'''
+class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = AlloyGrade
+    success_url = '/choice/projectList/'
+    def test_func(self):
+        alloyGrade = self.get_object()
+        if self.request.user == alloyGrade.owner:
+            return True
+        return False   
+'''         
 
-
-def structSpecs(request,pk):
+def structSpecs(request):
     return render(request,'structure/structSpecs.html')
+
+def alloyEdit(request):
+    query_results = AlloyGrade.objects.all()
+    user = request.user
+    alloygrades = query_results.filter(owner = user)
+    context = {'alloy' : alloygrades}
+    return render(request,'structure/alloyEdit.html',context)
+
+
+
+class AlloyListView(ListView):
+    model = ProjectDetails
+    template_name = 'structure/alloyEdit.html'
+    context_object_name = 'alloygrades'
+    
+    def get_queryset(self):
+        return AlloyGrade.objects.filter(owner = self.request.user)

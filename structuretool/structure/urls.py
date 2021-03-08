@@ -7,7 +7,8 @@ from .views import (
     ProjectUpdateView,
     ProjectDeleteView,
     AlloyListCreate,
-    AlloyListView
+    AlloyListView,
+    AlloyDeleteView
 )
 
 urlpatterns = [
@@ -18,8 +19,8 @@ urlpatterns = [
     path('choice/projectList/<int:pk>/update/',ProjectUpdateView.as_view(), name = 'ProjectDetails-update'),
     path('choice/projectList/<int:pk>/delete/',ProjectDeleteView.as_view(), name = 'ProjectDetails-delete'),
     path('choice/projectList/new/',ProjectCreateView.as_view(), name = 'ProjectDetails-create'),
-    path('choice/projectList/structureCalc/',AlloyListCreate.as_view(), name = 'structureCalc'),
-    path('choice/projectList/structureCalc/alloyEdit/',AlloyListView.as_view(), name = 'alloyEdit'),
-    #path('choice/projectList/structureCalc/delete/',AlloyDeleteView.as_view(), name = 'AlloyGrade-delete'),
-    path('choice/projectList/structureCalc/structSpecs/',views.structSpecs, name = 'structSpecs'),
+    path('choice/projectList/<int:pk>/structureCalc/',AlloyListCreate.as_view(), name = 'structureCalc'),
+    path('choice/projectList/<int:pk>/structureCalc/alloyEdit/',AlloyListView.as_view(), name = 'alloyEdit'),
+    path('choice/projectList/<int:pk>/structureCalc/alloyEdit/delete/',AlloyDeleteView.as_view(), name = 'AlloyGrade-delete'),
+    path('choice/projectList/<int:pk>/structureCalc/structSpecs/',views.structSpecs, name = 'structSpecs'),
 ]

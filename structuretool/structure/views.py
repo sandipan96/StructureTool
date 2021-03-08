@@ -7,7 +7,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.http import HttpResponse
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProjectDetailsForm, MatStrengthForm
@@ -118,20 +118,13 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
         context["selected"] = self.request.POST.get('alloygrade')
         return context
 '''
-class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = AlloyGrade
-    success_url = '/choice/projectList/'
-    def test_func(self):
-        alloyGrade = self.get_object()
-        if self.request.user == alloyGrade.owner:
-            return True
-        return False   
+  
 '''         
 
-def structSpecs(request):
+def structSpecs(request,pk):
     return render(request,'structure/structSpecs.html')
 
-def alloyEdit(request):
+def alloyEdit(request,pk):
     query_results = AlloyGrade.objects.all()
     user = request.user
     alloygrades = query_results.filter(owner = user)
@@ -147,3 +140,21 @@ class AlloyListView(ListView):
     
     def get_queryset(self):
         return AlloyGrade.objects.filter(owner = self.request.user)
+
+class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = AlloyGrade
+    success_url = '/choice/'
+    
+    def test_func(self):
+        alloyGrade = self.get_object()
+        if self.request.user == alloyGrade.owner:
+            return True
+        return False
+
+    #def delete(self, *args, **kwargs):
+        #self.object = self.get_object()    
+        #super().delete(*args, **kwargs)
+
+    def get_success_url(self):
+        alloygrade = self.object.alloygrade
+        return reverse_lazy('alloyEdit', kwargs = {'pk' : self.object.id})

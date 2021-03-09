@@ -45,7 +45,7 @@ class MatStrength(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('structureCalc', kwargs = {'pk' : self.pk})       
+        return reverse('matStrEdit', kwargs = {'pk' : self.pk})       
 
 
 

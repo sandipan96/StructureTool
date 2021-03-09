@@ -151,7 +151,6 @@ class AlloyListView(CreateView):
 
 class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = AlloyGrade
-    success_url = '/choice/'
     
     def test_func(self):
         alloyGrade = self.get_object()
@@ -162,3 +161,40 @@ class AlloyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
         alloygrade = self.object.alloygrade
         return reverse_lazy('alloyEdit', kwargs = {'pk' : self.object.id})
+
+def matStrEdit(request,pk):
+    query_results = MatStrength.objects.all()
+    user = request.user
+    matStrFiltered = query_results.filter(owner = user)
+    context = {'matStr' : matStrFiltered}
+    return render(request,'structure/matStrEdit.html',context)
+
+class MatStrListView(CreateView):
+    model = MatStrength
+    fields= ["name","bendStress"] 
+    template_name = 'structure/matStrEdit.html'
+    
+    def get_queryset(self):
+        return MatStrength.objects.filter(owner = self.request.user)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["objects"] = self.model.objects.all().filter(owner = self.request.user)
+        return context       
+
+class MatStrDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = MatStrength
+    
+    def test_func(self):
+        matStrength = self.get_object()
+        if self.request.user == matStrength.owner:
+            return True
+        return False
+
+    def get_success_url(self):
+        matStr = self.object.name
+        return reverse_lazy('matStrEdit', kwargs = {'pk' : self.object.id})

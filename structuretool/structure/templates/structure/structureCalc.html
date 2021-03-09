@@ -7,7 +7,7 @@
     <p class='text-muted'>Add and delete any Alloy Grade or Material strength.
       <div class="list-group">
         <a href = "alloyEdit" class="list-group-item list-group-item-light">Edit Alloy Grade</a>
-        <a href = "#" class="list-group-item list-group-item-light">Edit Material Strength</a>
+        <a href = "matStrEdit" class="list-group-item list-group-item-light">Edit Material Strength</a>
       </div>
     </p>
   </div>
@@ -28,16 +28,31 @@
         </select> 
       </div>
 
-    
-    {% for result in mats %}
-      <div class = "dropdown">
-        <label for="matStr">Material Strength of Alloy according to:</label>
-        <select name = "matStr" class = "form-control">
-          <option>{{ result.name}}</option>
-        </select>
+
+      <div class = 'content-section'>
+        <h5 style = "text-align:center" >Alloy Strength Specification</h5>
+        <table class = "table table-striped">
+          <thead>
+              <tr>
+                  <th scope = "col">Name</th>
+                  <th scope = "col">Permissible Bend stress <small>(kg/cm<sup>2</sup>)</small></th>
+                  <th scope = "col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for item in mats %}
+              <tr> 
+                  <td>{{ item.name}}</td>
+                  <td>{{ item.bendStress}}</td>
+                  <td><a class = "btn btn-primary" href = "#}"> Select </a></td>
+              </tr>
+              {% endfor %}
+          </tbody>   
+        </table>
       </div>
-      <p>Permissible Bending Stress : {{ result.bendStress }} kg/cm<sup>2</sup></p>
-    {% endfor %}
+
+     
+    
 
     <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
     <p>
@@ -59,7 +74,7 @@
       mm   (whichever is less)
     </p>
     <p>
-      Design Wind Load : 
+      Design Wind Load :
       P = <input id = "windLoad" type = "number" oninput="lengthConverter(this.value)"> Pa
         or <span id = "output"></span> kg/cm
     </p>
@@ -97,7 +112,7 @@
     </p>
     <p>
       <button class = "btn btn-secondary" onclick="draw()">Show Diagram</button>
-      <a class = "btn btn-secondary" href = "structSpecs"> Continue &#8594; </a>
+      <a class = "btn btn-info" href = "structSpecs"> Continue &#8594; </a>
     </p>
 
     <p></p>
@@ -218,47 +233,5 @@
         context.fillText("l = " + height + "m", 40, (height * 100)/2);
       }  
     </script>
-
-    
-    <!-- <a href = "" data-toggle = "modal" data-target = "#addMatStr">Add Alloy</a>
-    <form method = "POST">
-        {% csrf_token %}
-        <div class="modal" tabindex="-1" id = "addMatStr">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Add a new Alluminium Alloy Grade</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>{{form|crispy}}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-    </form> -->
-
-
-    <!-- <div class = "content-section">
-        <form method = "POST">
-            {% csrf_token %}
-            <fieldset class = "form-group">
-                <legend class = "border-bottom mb-4"> Create Project</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class = "form-group">
-                <button class = "btn btn-outline-info" type="submit"> Save </button>
-            </div>
-        </form>
-    </div>
-    -->
-
-
     
 {% endblock content %}

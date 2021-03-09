@@ -8,7 +8,9 @@ from .views import (
     ProjectDeleteView,
     AlloyListCreate,
     AlloyListView,
-    AlloyDeleteView
+    AlloyDeleteView,
+    MatStrListView,
+    MatStrDeleteView
 )
 
 urlpatterns = [
@@ -23,4 +25,6 @@ urlpatterns = [
     path('choice/projectList/<int:pk>/structureCalc/alloyEdit/',AlloyListView.as_view(), name = 'alloyEdit'),
     path('choice/projectList/<int:pk>/structureCalc/alloyEdit/delete/',AlloyDeleteView.as_view(), name = 'AlloyGrade-delete'),
     path('choice/projectList/<int:pk>/structureCalc/structSpecs/',views.structSpecs, name = 'structSpecs'),
+    path('choice/projectList/<int:pk>/structureCalc/matStrEdit/',MatStrListView.as_view(), name = 'matStrEdit'),
+    path('choice/projectList/<int:pk>/structureCalc/matStrEdit/delete',MatStrDeleteView.as_view(), name = 'MatStrength-delete'),
 ]

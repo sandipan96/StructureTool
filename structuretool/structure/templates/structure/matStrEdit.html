@@ -1,34 +1,36 @@
 {% extends "structure/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h4 style = "text-align:center; padding-bottom:10px">Add a new Alloy Grade or delete an existing one!</h1>
+<h4 style = "text-align:center; padding-bottom:10px">Add a new Material Strength Specification or delete an existing one!</h1>
 <table class = "table table-striped">
     <thead>
         <tr>
-            <th scope = "col">Alloy Grade</th>
+            <th scope = "col">Name</th>
+            <th scope = "col">Permissible Bend stress</th>
             <th scope = "col"></th>
         </tr>
     </thead>
     <tbody>
         {% for item in objects %}
         <tr> 
-            <td>{{ item.alloygrade}}</td>
-            <td><a class = "btn btn-danger" href = "{% url 'AlloyGrade-delete' item.id %}"> Delete </a></td>
+            <td>{{ item.name}}</td>
+            <td>{{ item.bendStress}}</td>
+            <td><a class = "btn btn-danger" href = "{% url 'MatStrength-delete' item.id %}"> Delete </a></td>
         </tr>
         {% endfor %}
     </tbody>   
 </table>
 <a class = "btn btn-secondary" href = "../"> &#8592; Return </a>
 
-<button class = "btn btn-success" style ="margin-left: 370px;" a href = "" data-toggle = "modal" data-target = "#addAlloy">&#43; Add AlloyGrade </a></button>
+<button class = "btn btn-success" style ="float:right" a href = "" data-toggle = "modal" data-target = "#addMatStr">&#43; Add Material Strength </a></button>
 
 <form method = "POST">
     {% csrf_token %}
-    <div class="modal" tabindex="-1" id = "addAlloy">
+    <div class="modal" tabindex="-1" id = "addMatStr">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add a new Alluminium Alloy Grade</h5>
+                <h5 class="modal-title">Add a new Material Strength Specification</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>

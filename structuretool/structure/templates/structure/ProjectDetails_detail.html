@@ -10,9 +10,9 @@
         <h3>Client Phone : {{object.clientPhone}}</h3>
         <h3>Client Address : {{object.clientAddress}}</h3>
         <p></p>
-        <a class = "btn btn-secondary" href = "{% url 'ProjectDetails-update' object.id %}"> Update </a>
+        <a class = "btn btn-warning" href = "{% url 'ProjectDetails-update' object.id %}"> Update </a>
         <a class = "btn btn-danger" href = "{% url 'ProjectDetails-delete' object.id %}"> Delete </a>
-        <a class = "btn btn-secondary" href = "{% url 'structureCalc' object.id %}"> Next -> </a>
+        <a class = "btn btn-info" href = "{% url 'structureCalc' object.id %}"> Next &#8594; </a>
     </div>
 
 {% endblock content %}

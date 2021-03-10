@@ -3,7 +3,7 @@
 {% block sidebar %}
 <div class="col-md-4">
   <div class="content-section4">
-    <h3>Edit</h3>
+    <h4>Edit</h4>
     <p class='text-muted'>Add and delete any Alloy Grade or Material strength.
       <div class="list-group">
         <a href = "alloyEdit" class="list-group-item list-group-item-light">Edit Alloy Grade</a>
@@ -29,7 +29,7 @@
       </div>
 
 
-      <div class = 'content-section'>
+      <div class = 'content-section5'>
         <h5 style = "text-align:center" >Alloy Strength Specification</h5>
         <table class = "table table-striped">
           <thead>
@@ -97,7 +97,7 @@
     </p>
     <p>
       Unsupported Length
-      <label> l = </label>
+      <label> &#8467; = </label>
       <input type = "float" name = "length" id = "length"> m
     </p>
     <p>
@@ -112,7 +112,7 @@
     </p>
     <p>
       <button class = "btn btn-secondary" onclick="draw()">Show Diagram</button>
-      <a class = "btn btn-info" href = "structSpecs"> Continue &#8594; </a>
+      <a class = "btn btn-info"  href = "structSpecs"> Continue &#10140; </a>
     </p>
 
     <p></p>
@@ -230,7 +230,8 @@
         context.font="12px Arial";
         context.fillStyle = "red";
         context.textAlign = "center";
-        context.fillText("l = " + height + "m", 40, (height * 100)/2);
+        letter = '\u2113' ;
+        context.fillText( letter + " = " + height + "m", 40, (height * 100)/2);
       }  
     </script>
     

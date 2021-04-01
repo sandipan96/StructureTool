@@ -11,6 +11,9 @@ from .views import (
     AlloyDeleteView,
     MatStrListView,
     MatStrDeleteView,
+    SectionListCreate,
+    SectionDeleteView,
+    SectionUpdateView
 )
 
 urlpatterns = [
@@ -24,8 +27,10 @@ urlpatterns = [
     path('choice/projectList/<int:pk>/structureCalc/',AlloyListCreate.as_view(), name = 'structureCalc'),
     path('choice/projectList/<int:pk>/structureCalc/alloyEdit/',AlloyListView.as_view(), name = 'alloyEdit'),
     path('choice/projectList/<int:pk>/structureCalc/alloyEdit/delete/',AlloyDeleteView.as_view(), name = 'AlloyGrade-delete'),
-    path('choice/projectList/<int:pk>/structureCalc/structSpecs/',views.structSpecs, name = 'structSpecs'),
-    path('choice/projectList/<int:pk>/structureCalc/structSpecs/addSection/',views.addSection, name = 'addSection'),
+    path('choice/projectList/<int:pk>/structureCalc/structSpecs/',SectionListCreate.as_view(), name = 'structSpecs'),
+    path('choice/projectList/<int:pk>/structureCalc/structSpecs/update/',SectionUpdateView.as_view(), name = 'SectionLibrary-update'),
+    path('choice/projectList/<int:pk>/structureCalc/structSpecs/delete/',SectionDeleteView.as_view(), name = 'SectionLibrary-delete'),
+    #path('choice/projectList/<int:pk>/structureCalc/structSpecs/addSection/',views.addSection, name = 'addSection'),
     path('choice/projectList/<int:pk>/structureCalc/matStrEdit/',MatStrListView.as_view(), name = 'matStrEdit'),
     path('choice/projectList/<int:pk>/structureCalc/matStrEdit/delete',MatStrDeleteView.as_view(), name = 'MatStrength-delete'),
 ]

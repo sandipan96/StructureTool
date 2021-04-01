@@ -62,3 +62,6 @@ class SectionLibrary(models.Model):
     def __str__(self):
         return self.system + ": " + str(self.drawing)
 
+    def get_absolute_url(self):
+        return reverse('structSpecs', kwargs = {'pk' : self.pk})      
+

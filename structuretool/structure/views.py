@@ -199,27 +199,36 @@ class MatStrDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         matStr = self.object.name
         return reverse_lazy('matStrEdit', kwargs = {'pk' : self.object.id})
 
-def structSpecs(request,pk):
-    sections = SectionLibrary.objects.all()
-    context = {'sections' : sections}
-    return render(request,'structure/structSpecs.html',context)
+# def structSpecs(request,pk):
+#     sections = SectionLibrary.objects.all()
+#     context = {'sections' : sections}
+#     return render(request,'structure/structSpecs.html',context)
 
-        
-def addSection(request,pk):
-    if request.method == 'POST':
-        form = SectionLibraryForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Added a new Section!')
-        else:
-            messages.success(request, f'Failed!!!')     
-    else:
-        form = SectionLibraryForm()   
+class SectionListCreate(CreateView):
+    model = SectionLibrary
+    fields= ["system","profileCodeInner","profileCodeOuter","addReinfInner","addReinfOuter","addInserts","drawing","ixx","wxx","sectionName"]    
+    template_name = 'structure/structSpecs.html'
 
-    context = {
-        'form' : form
-    }   
-    return render(request, 'structure/addSection.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["sections"] = self.model.objects.all()
+        return context
+
+    def get_success_url(self):
+        sectionRow = self.object.system
+        return reverse_lazy('structSpecs', kwargs = {'pk' : self.object.id})        
+
+class SectionDeleteView( DeleteView):
+    model = SectionLibrary    
+
+    def get_success_url(self):
+        sectionRow = self.object.system
+        return reverse_lazy('structSpecs', kwargs = {'pk' : self.object.id})
+
+class SectionUpdateView(UpdateView):
+    model = SectionLibrary
+    fields= ["system","profileCodeInner","profileCodeOuter","addReinfInner","addReinfOuter","addInserts","drawing","ixx","wxx","sectionName"]  
+ 
 
 
   

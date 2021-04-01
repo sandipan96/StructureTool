@@ -47,5 +47,18 @@ class MatStrength(models.Model):
     def get_absolute_url(self):
         return reverse('matStrEdit', kwargs = {'pk' : self.pk})       
 
+class SectionLibrary(models.Model):
+    system = models.CharField(max_length = 10)
+    profileCodeInner = models.CharField(max_length = 10)
+    profileCodeOuter = models.CharField(max_length = 10)
+    addReinfInner = models.CharField(max_length = 10)
+    addReinfOuter = models.CharField(max_length = 10)
+    addInserts = models.CharField(max_length = 3)
+    drawing = models.ImageField(upload_to = 'images/', null = True, verbose_name="")
+    ixx = models.FloatField(default= 0.0)
+    wxx = models.FloatField(default= 0.0)
+    sectionName = models.CharField(max_length = 50, default = "SECTION-NAME")
 
+    def __str__(self):
+        return self.system + ": " + str(self.drawing)
 

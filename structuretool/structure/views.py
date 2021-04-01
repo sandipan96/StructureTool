@@ -8,10 +8,11 @@ from django.views.generic import (
 )
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ProjectDetailsForm, MatStrengthForm
-from .models import ProjectDetails, SimpleTable, AlloyGrade, MatStrength
+from .forms import ProjectDetailsForm, MatStrengthForm, SectionLibraryForm
+from .models import ProjectDetails, SimpleTable, AlloyGrade, MatStrength, SectionLibrary
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 
@@ -118,8 +119,7 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
         return context
         
 
-def structSpecs(request,pk):
-    return render(request,'structure/structSpecs.html')
+
 
 def alloyEdit(request,pk):
     query_results = AlloyGrade.objects.all()
@@ -198,3 +198,29 @@ class MatStrDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
         matStr = self.object.name
         return reverse_lazy('matStrEdit', kwargs = {'pk' : self.object.id})
+
+def structSpecs(request,pk):
+    sections = SectionLibrary.objects.all()
+    context = {'sections' : sections}
+    return render(request,'structure/structSpecs.html',context)
+
+        
+def addSection(request,pk):
+    if request.method == 'POST':
+        form = SectionLibraryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Added a new Section!')
+            return redirect('/choice/projectList/')
+        else:
+            messages.success(request, f'Failed!!!')     
+    else:
+        form = SectionLibraryForm()   
+
+    context = {
+        'form' : form
+    }   
+    return render(request, 'structure/addSection.html', context)
+
+
+  

@@ -1,7 +1,44 @@
 {% extends "structure/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
     <h1 style = "text-align:center" class = "display-3">Structural Calculation</h1>
     <h4> Choice of Section </h4>
+    <div class = "content-section5">
+        <table class = "table table-striped">
+            <thead>
+                <tr>
+                    <th scope = "col">System</th>
+                    <th scope = "col">Profile Code (Inner)</th>
+                    <th scope = "col">Profile Code (Outer)</th>
+                    <th scope = "col">Additional Reinf (Inner)</th>
+                    <th scope = "col">Additional Reinf (Outer)</th>
+                    <th scope = "col">Additional Inserts</th>
+                    <th scope = "col">Drawing</th>
+                    <th scope = "col">Ixx</th>
+                    <th scope = "col">Wxx</th>
+                    <th scope = "col">Section Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in sections %}
+                <tr> 
+                    <td>{{ item.system }}</td>
+                    <td>{{ item.profileCodeInner}}</td>
+                    <td>{{ item.profileCodeOuter }}</td>
+                    <td>{{ item.addReinfInner }}</td>
+                    <td>{{ item.addReinfOuter }}</td>
+                    <td>{{ item.addInserts }}</td>
+                    <td>{{ item.drawing }}</td>
+                    <td>{{ item.ixx }}</td>
+                    <td>{{ item.wxx }}</td>
+                    <td>{{ item.sectionName }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>   
+        </table>
+
+    </div>
+    <a class = "btn btn-success btn-lg btn-block"  href = "addSection"> &#43; Add a New Section </a>        
 
 {% endblock content %}

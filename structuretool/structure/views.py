@@ -207,11 +207,10 @@ def structSpecs(request,pk):
         
 def addSection(request,pk):
     if request.method == 'POST':
-        form = SectionLibraryForm(request.POST)
+        form = SectionLibraryForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, f'Added a new Section!')
-            return redirect('/choice/projectList/')
         else:
             messages.success(request, f'Failed!!!')     
     else:

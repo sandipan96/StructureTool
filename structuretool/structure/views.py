@@ -216,18 +216,25 @@ class SectionListCreate(CreateView):
 
     def get_success_url(self):
         sectionRow = self.object.system
-        return reverse_lazy('structSpecs', kwargs = {'pk' : self.object.id})        
+        return reverse_lazy('structSpecs', kwargs = {'pk' : self.object.id})
+          
 
-class SectionDeleteView( DeleteView):
+class SectionDeleteView(UserPassesTestMixin, DeleteView):
     model = SectionLibrary    
 
     def get_success_url(self):
         sectionRow = self.object.system
         return reverse_lazy('structSpecs', kwargs = {'pk' : self.object.id})
 
-class SectionUpdateView(UpdateView):
+    def test_func(self):
+        return self.request.user.is_superuser      
+
+class SectionUpdateView(UserPassesTestMixin, UpdateView):
     model = SectionLibrary
-    fields= ["system","profileCodeInner","profileCodeOuter","addReinfInner","addReinfOuter","addInserts","drawing","ixx","wxx","sectionName"]  
+    fields= ["system","profileCodeInner","profileCodeOuter","addReinfInner","addReinfOuter","addInserts","drawing","ixx","wxx","sectionName"]
+
+    def test_func(self):
+        return self.request.user.is_superuser    
  
 
 

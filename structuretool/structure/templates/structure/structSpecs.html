@@ -35,9 +35,12 @@
                     <td>{{ item.ixx }}</td>
                     <td>{{ item.wxx }}</td>
                     <td>{{ item.sectionName }}</td>
-                    <td><a class = "btn btn-warning" href = "{% url 'SectionLibrary-update' item.id %}"> Update </a>
+                    <td>
+                        {% if request.user.is_superuser %}
+                        <a class = "btn btn-warning" href = "{% url 'SectionLibrary-update' item.id %}"> Update </a>
                         <p> </p>
                         <a class = "btn btn-danger" href = "{% url 'SectionLibrary-delete' item.id %}"> Delete </a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

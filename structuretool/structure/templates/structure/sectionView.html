@@ -12,7 +12,7 @@
 
   <div class = "dropdown">
     <label for="sectionNames">SectionNames:</label>      
-    <select id = sectionNames name = "sectionNames" class = "form-control">
+    <select id = "slct2" name = "sectionNames" class = "form-control">
     </select>
   </div>
 
@@ -21,6 +21,20 @@
       var names = []
       select = document.getElementById("slct1")
       console.log(select.value);
+      {% for name in query %}
+        if('{{name.system}}' == select.value){
+          names.push('{{name.sectionName}}');
+        }
+      {% endfor %}
+      //console.log(names);
+      let nameSelect = document.querySelector('#slct2');
+      let option;
+      for(name of names){
+        option = document.createElement("OPTION");
+        option.innerText = name;
+        option.value = name;
+        nameSelect.appendChild(option);
+      }
     }
   </script>
 {% endblock content %}

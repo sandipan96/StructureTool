@@ -16,3 +16,13 @@ class SectionLibraryForm(forms.ModelForm):
     class Meta:
         model = SectionLibrary
         fields= ["system","profileCodeInner","profileCodeOuter","addReinfInner","addReinfOuter","addInserts","drawing","ixx","wxx","sectionName"] 
+
+
+class SectionFormTwo(forms.ModelForm):
+    class Meta:
+        model = SectionLibrary
+        fields = ["system","drawing","sectionName"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['sectionName'].queryset = SectionLibrary.objects.none()    

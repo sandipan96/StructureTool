@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ProjectDetailsForm, MatStrengthForm, SectionLibraryForm
+from .forms import ProjectDetailsForm, MatStrengthForm, SectionLibraryForm, SectionFormTwo
 from .models import ProjectDetails, SimpleTable, AlloyGrade, MatStrength, SectionLibrary
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
@@ -103,6 +103,7 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
     model = AlloyGrade
     fields= ["alloygrade"] 
     model2 = MatStrength
+    model3 = SectionLibrary
     template_name = 'structure/structureCalc.html'
 
     def get_queryset(self):
@@ -236,6 +237,17 @@ class SectionUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.is_superuser    
  
+
+def sectionView(request,pk):
+    sections = SectionLibrary.objects.values_list("system", flat = True).distinct()
+    sectionNames = SectionLibrary.objects.values_list("sectionName")
+    query = SectionLibrary.objects.all()
+    context = {'sections': sections,'sectionNames':sectionNames, 'query':query}
+    return render(request,'structure/sectionView.html',context)
+
+
+    
+
 
 
   

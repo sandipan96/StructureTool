@@ -1,0 +1,28 @@
+{% extends "structure/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class = "dropdown">
+    <label for="sectionview">System:</label>      
+    <select id = "slct1" name = "sectionview" class = "form-control" onChange = "populate()">
+      {% for result in sections %}
+        <option>{{ result }}</option> 
+      {% endfor %}
+    </select> 
+  </div>
+
+  <div class = "dropdown">
+    <label for="sectionNames">SectionNames:</label>      
+    <select id = sectionNames name = "sectionNames" class = "form-control">
+    </select>
+  </div>
+
+  <script type = "text/javascript">
+    function populate() {
+      var names = []
+      select = document.getElementById("slct1")
+      console.log(select.value);
+    }
+  </script>
+{% endblock content %}
+
+

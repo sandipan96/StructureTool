@@ -16,16 +16,21 @@
   <h4> Choice of Section </h4>
   <div class = "dropdown">
     <label for="sectionview">System:</label>      
-    <select id = "slct1" name = "sectionview" class = "form-control" onChange = "populate()">
+    <select id = "slct1" name = "sectionview" class = "form-control" onClick = "populate()">
       {% for result in sections %}
         <option>{{ result }}</option> 
       {% endfor %}
     </select> 
   </div>
 
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+    <label class="form-check-label" for="flexSwitchCheckChecked"> Automatically select the best option</label>
+  </div>
+
   <div class = "dropdown">
     <label for="sectionNames">SectionNames:</label>      
-    <select id = "slct2" name = "sectionNames" class = "form-control" onchange = "poputlateTwo()">
+    <select id = "slct2" name = "sectionNames" class = "form-control" onClick = "poputlateTwo()">
     </select>
   </div>
 

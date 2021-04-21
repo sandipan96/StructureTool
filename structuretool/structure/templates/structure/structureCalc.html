@@ -28,30 +28,16 @@
         </select> 
       </div>
 
-
-      <div class = 'content-section5'>
-        <h5 style = "text-align:center" >Alloy Strength Specification</h5>
-        <table class = "table table-striped">
-          <thead>
-              <tr>
-                  <th scope = "col">Name</th>
-                  <th scope = "col">Permissible Bend stress <small>(kg/cm<sup>2</sup>)</small></th>
-                  <th scope = "col"></th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for item in mats %}
-              <tr> 
-                  <td>{{ item.name}}</td>
-                  <td>{{ item.bendStress}}</td>
-                  <td><a class = "btn btn-primary" href = "#}"> Select </a></td>
-              </tr>
-              {% endfor %}
-          </tbody>   
-        </table>
+      <div class = "dropdown">
+        <label for="alloystrength">Alloy Strength Specification:</label>      
+        <select id = "alloyStrength" name = "alloystrength" class = "form-control" onClick = selectBendStress()>
+          {% for result in mats %}
+            <option>{{ result.name }}</option> 
+          {% endfor %}
+        </select> 
       </div>
-
-     
+      <label for="bendStress">Permissible Bend Stress (kg/cm<sup>2</sup>) :  </label>
+      <input type="text" id="bendStress" name="bendStress"><br><br> 
     
 
     <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
@@ -232,6 +218,15 @@
         context.textAlign = "center";
         letter = '\u2113' ;
         context.fillText( letter + " = " + height + "m", 40, (height * 100)/2);
+      }
+
+      function selectBendStress(){
+        select = document.getElementById("alloyStrength");
+        {% for item in mats %}
+          if('{{item.name}}' == select.value){
+            document.getElementById('bendStress').value = '{{item.bendStress}}' ;
+          }
+      {% endfor %} 
       }  
     </script>
     

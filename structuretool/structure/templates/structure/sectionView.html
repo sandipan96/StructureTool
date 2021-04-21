@@ -18,22 +18,30 @@
 
   <script type = "text/javascript">
     function populate() {
+      clear();
       var names = []
       select = document.getElementById("slct1")
+      
       console.log(select.value);
       {% for name in query %}
         if('{{name.system}}' == select.value){
-          names.push('{{name.sectionName}}');
+          let nameSelect = document.querySelector('#slct2');
+          let option;
+          option = document.createElement("OPTION");
+          option.innerText = '{{name.sectionName}}';
+          option.value = '{{name.sectionName}}';
+          nameSelect.appendChild(option);
         }
       {% endfor %}
       //console.log(names);
-      let nameSelect = document.querySelector('#slct2');
-      let option;
-      for(name of names){
-        option = document.createElement("OPTION");
-        option.innerText = name;
-        option.value = name;
-        nameSelect.appendChild(option);
+
+    }
+
+    function clear(){
+      select = document.getElementById("slct2");
+      var length = select.options.length;
+      for (i = length-1; i >= 0; i--) {
+        select.options[i] = null;
       }
     }
   </script>

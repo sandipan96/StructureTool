@@ -255,3 +255,16 @@ body {
     content: counter(serial-number);  /* Display the counter */
   }
 
+  .sectionDrawing{
+    position: relative;
+    right : -400px;
+    top : -125px;
+  }
+
+  .sectionLabel{
+    position: relative;
+    right : -400px;
+    top : -38.5px;
+  }
+
+

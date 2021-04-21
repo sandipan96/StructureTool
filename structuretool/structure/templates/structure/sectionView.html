@@ -1,6 +1,19 @@
 {% extends "structure/base.html" %}
 {% load crispy_forms_tags %}
+{% block sidebar %}
+<div class="col-md-4">
+  <div class="content-section4" style = "top:80px;">
+    <h4>Edit</h4>
+      <div class="list-group">
+        <a href = "structSpecs" class="list-group-item list-group-item-light"><i class="material-icons">folder_open</i> View Section Library</a>
+      </div>
+    </p>
+  </div>
+</div>
+{% endblock %}
 {% block content %}
+
+  <h4> Choice of Section </h4>
   <div class = "dropdown">
     <label for="sectionview">System:</label>      
     <select id = "slct1" name = "sectionview" class = "form-control" onChange = "populate()">
@@ -12,14 +25,27 @@
 
   <div class = "dropdown">
     <label for="sectionNames">SectionNames:</label>      
-    <select id = "slct2" name = "sectionNames" class = "form-control">
+    <select id = "slct2" name = "sectionNames" class = "form-control" onchange = "poputlateTwo()">
     </select>
   </div>
+
+  <div class = "content-section" id = "sectionProperties">
+    <p><i>Properties of the combined sections</i></p>
+    <div class = "sectionLabel">
+      <p><i>Section Drawing</i></p>
+    </div>
+    <label for="property1">I<sub>xx</sub> (cm<sup>4</sup>) = </label>
+    <input type="text" id="property1" name="property1"><br><br>
+    <label for="property2">W<sub>xx</sub> (cm<sup>3</sup>) = </label>
+    <input type="text" id="property2" name="property2"><br><br>
+    <img id = "sectionDrawing" class = "sectionDrawing">
+  </div>
+  <a class = "btn btn-info"  href = "#" style = "display: flex; justify-content: center;"> View Report &#10140; </a>
+  <br><br>
 
   <script type = "text/javascript">
     function populate() {
       clear();
-      var names = []
       select = document.getElementById("slct1")
       
       console.log(select.value);
@@ -44,6 +70,19 @@
         select.options[i] = null;
       }
     }
+
+    function poputlateTwo() {
+      select = document.getElementById("slct2");
+      {% for name in query %}
+        if('{{name.sectionName}}' == select.value){
+          document.getElementById('property1').value = '{{name.ixx}}' ;
+          document.getElementById('property2').value = '{{name.wxx}}' ;
+          document.getElementById('sectionDrawing').src = '{{ MEDIA_URL }}{{ name.drawing }}';
+        }
+      {% endfor %}  
+    }
+
+
   </script>
 {% endblock content %}
 

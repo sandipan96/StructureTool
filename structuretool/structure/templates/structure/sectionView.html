@@ -47,8 +47,19 @@
   </div>
   <a class = "btn btn-info"  href = "#" style = "display: flex; justify-content: center;"> View Report &#10140; </a>
   <br><br>
+  <button onclick="myFunction()">Click me</button>
 
   <script type = "text/javascript">
+
+    window.addEventListener('load' , () => {
+      const alloygrade = localStorage.getItem('ALLOYGRADE');
+      const alloystrength = sessionStorage.getItem('ALLOYSTRENGTH');
+      
+      console.log(alloygrade);
+      console.log(alloystrength);
+    });
+
+  
     function populate() {
       clear();
       select = document.getElementById("slct1")
@@ -85,6 +96,11 @@
           document.getElementById('sectionDrawing').src = '{{ MEDIA_URL }}{{ name.drawing }}';
         }
       {% endfor %}  
+    }
+
+    function myFunction(){
+      test = document.getElementById('windLoad');
+      console.log(test.value);
     }
 
 

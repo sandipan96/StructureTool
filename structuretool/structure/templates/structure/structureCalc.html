@@ -18,10 +18,11 @@
 
     <h1 style = "text-align:center" class = "display-3">Structural Calculation</h1>
     <h4> Material Specifications </h4>
-    
+    <form action = "sectionView/" method = "POST">
+      {% csrf_token %}
       <div class = "dropdown">
         <label for="alloygrade">Alluminium Alloy Grade:</label>      
-        <select name = "alloygrade" class = "form-control">
+        <select id = "alloygrade" name = "alloygrade" class = "form-control">
           {% for result in objects %}
             <option>{{ result.alloygrade }}</option> 
           {% endfor %}
@@ -43,7 +44,7 @@
     <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
     <p>
       Maximum Allowable Deflection (f<sub>m</sub>): l/ 
-      <select>
+      <select id = "maxDeflection">
         <option> 75 </option>
         <option> 100 </option>
         <option> 125 </option>
@@ -74,12 +75,12 @@
     <p>
       Load Increase Coefficient
       <label>&gamma;<sub>s</sub> = </label>
-      <input type = "float">
+      <input type = "float" id = "liCoef">
     </p>
     <p>
       Material Decrease Coefficient
       <label>&gamma;<sub>m</sub> = </label>
-      <input type = "float">
+      <input type = "float" id = "mdCoef">
     </p>
     <p>
       Unsupported Length
@@ -96,6 +97,9 @@
       <label> b = </label>
       <input type = "float" name = "rwidth" id = "rwidth"> m
     </p>
+    <input type = "submit" onclick="passVars()"/>
+
+    </form>
     <p>
       <button class = "btn btn-secondary" onclick="draw()">Show Diagram</button>
       <a class = "btn btn-info"  href = "sectionView"> Continue &#10140; </a>
@@ -227,6 +231,34 @@
             document.getElementById('bendStress').value = '{{item.bendStress}}' ;
           }
       {% endfor %} 
+      }
+
+      function passVars(){
+        const alloygrade = document.getElementById('alloygrade').value;
+        const alloystrength = document.getElementById('alloyStrength').value;
+        const bendStress = document.getElementById('bendStress').value;
+        const maxDeflection = document.getElementById('maxDeflection').value;
+        const windLoad = document.getElementById('windLoad').value;
+        const shapeChoice = document.getElementById('shapeChoice').value;
+        const liCoef = document.getElementById('liCoef').value;
+        const mdCoef = document.getElementById('mdCoef').value;
+        const length = document.getElementById('length').value;
+        const lwidth = document.getElementById('ldwith').value;
+        const rwidth = document.getElementById('rwidth').value;
+
+        localStorage.setItem("ALLOYGRADE",alloygrade);
+        sessionStorage.setItem("ALLOYSTRENGTH",alloystrength);
+        sessionStorage.setItem("BENDSTRESS",bendStress);
+        sessionStorage.setItem("MAXDEFLECTION",maxDeflection);
+        sessionStorage.setItem("WINDLOAD",windLoad);
+        sessionStorage.setItem("SHAPECHOICE",shapeChoice);
+        sessionStorage.setItem("LICOEF",liCoef);
+        sessionStorage.setItem("MDCOEF",mdCoef);
+        sessionStorage.setItem("LENGTH",length);
+        sessionStorage.setItem("LWIDTH",lwidth);
+        sessionStorage.setItem("RWIDTH",rwidth);
+
+        return;
       }  
     </script>
     

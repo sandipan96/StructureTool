@@ -111,6 +111,19 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
+        self.request.session['alloygrade'] = form.cleaned_data["alloygrade"]
+        self.request.session['alloystrength'] = form.cleaned_data["alloyStrength"]
+        self.request.session['bendstress'] = form.cleaned_data["bendStress"]
+        self.request.session['maxDeflection'] = form.cleaned_data["maxDeflection"]
+        self.request.session['windLoad'] = form.cleaned_data["windLoad"]
+        self.request.session['shapeChoice'] = form.cleaned_data["shapeChocie"]
+        self.request.session['liCoef'] = form.cleaned_data["liCoef"]
+        self.request.session['mdCoef'] = form.cleaned_data["mdCoef"]
+        self.request.session['length'] = form.cleaned_data["length"]
+        self.request.session['lwidth'] = form.cleaned_data["lwidth"]
+        self.request.session['rwidth'] = form.cleaned_data["rwidth"]
+
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

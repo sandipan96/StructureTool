@@ -31,7 +31,7 @@
 
       <div class = "dropdown">
         <label for="alloystrength">Alloy Strength Specification:</label>      
-        <select id = "alloyStrength" name = "alloystrength" class = "form-control" onClick = selectBendStress()>
+        <select id = "alloyStrength" name = "alloyStrength" class = "form-control" onClick = selectBendStress()>
           {% for result in mats %}
             <option>{{ result.name }}</option> 
           {% endfor %}
@@ -44,7 +44,7 @@
     <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
     <p>
       Maximum Allowable Deflection (f<sub>m</sub>): l/ 
-      <select id = "maxDeflection">
+      <select id = "maxDeflection" name = "maxDeflection">
         <option> 75 </option>
         <option> 100 </option>
         <option> 125 </option>
@@ -62,7 +62,7 @@
     </p>
     <p>
       Design Wind Load :
-      P = <input id = "windLoad" type = "number" oninput="lengthConverter(this.value)"> Pa
+      P = <input id = "windLoad" name = "windLoad" type = "number" oninput="lengthConverter(this.value)"> Pa
         or <span id = "output"></span> kg/cm
     </p>
     <p>
@@ -75,12 +75,12 @@
     <p>
       Load Increase Coefficient
       <label>&gamma;<sub>s</sub> = </label>
-      <input type = "float" id = "liCoef">
+      <input type = "float" id = "liCoef" name = "liCoef">
     </p>
     <p>
       Material Decrease Coefficient
       <label>&gamma;<sub>m</sub> = </label>
-      <input type = "float" id = "mdCoef">
+      <input type = "float" id = "mdCoef" name = "mdCoef">
     </p>
     <p>
       Unsupported Length

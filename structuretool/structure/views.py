@@ -109,21 +109,24 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
     def get_queryset(self):
         return AlloyGrade.objects.filter(owner = self.request.user)
 
+    # def post(self, request, *args, **kwargs):
+    #     self.request.session['alloygrade'] = form.cleaned_data["alloygrade"]
+    #     self.request.session['alloystrength'] = form.cleaned_data["alloyStrength"]
+    #     self.request.session['bendstress'] = form.cleaned_data["bendStress"]
+    #     self.request.session['maxDeflection'] = form.cleaned_data["maxDeflection"]
+    #     self.request.session['windLoad'] = form.cleaned_data["windLoad"]
+    #     self.request.session['shapeChoice'] = form.cleaned_data["shapeChocie"]
+    #     self.request.session['liCoef'] = form.cleaned_data["liCoef"]
+    #     self.request.session['mdCoef'] = form.cleaned_data["mdCoef"]
+    #     self.request.session['length'] = form.cleaned_data["length"]
+    #     self.request.session['lwidth'] = form.cleaned_data["lwidth"]
+    #     self.request.session['rwidth'] = form.cleaned_data["rwidth"]
+    #     return render(request, self.template_name, {'form': form})
+
+
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        self.request.session['alloygrade'] = form.cleaned_data["alloygrade"]
-        self.request.session['alloystrength'] = form.cleaned_data["alloyStrength"]
-        self.request.session['bendstress'] = form.cleaned_data["bendStress"]
-        self.request.session['maxDeflection'] = form.cleaned_data["maxDeflection"]
-        self.request.session['windLoad'] = form.cleaned_data["windLoad"]
-        self.request.session['shapeChoice'] = form.cleaned_data["shapeChocie"]
-        self.request.session['liCoef'] = form.cleaned_data["liCoef"]
-        self.request.session['mdCoef'] = form.cleaned_data["mdCoef"]
-        self.request.session['length'] = form.cleaned_data["length"]
-        self.request.session['lwidth'] = form.cleaned_data["lwidth"]
-        self.request.session['rwidth'] = form.cleaned_data["rwidth"]
-
-
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -254,8 +257,23 @@ class SectionUpdateView(UserPassesTestMixin, UpdateView):
 def sectionView(request,pk):
     sections = SectionLibrary.objects.values_list("system", flat = True).distinct()
     sectionNames = SectionLibrary.objects.values_list("sectionName")
+    if request.method == 'POST':
+        alloygrade = request.POST.get('alloygrade')
+        alloystrength = request.POST.get('alloyStrength')
+        bendstress = request.POST.get('bendStress')
+        maxDeflection = request.POST.get('maxDeflection')
+        windLoad = request.POST.get('windLoad')
+        shapeChoice = request.POST.get('shapeChoice')
+        liCoef = request.POST.get('liCoef')
+        mdCoef = request.POST.get('mdCoef')
+        length = request.POST.get('length')
+        lwidth = request.POST.get('lwidth')
+        rwidth = request.POST.get('rwidth')
+        
     query = SectionLibrary.objects.all()
-    context = {'sections': sections,'sectionNames':sectionNames, 'query':query}
+    context = {'sections': sections,'sectionNames':sectionNames, 'query':query, 'alloygrade':alloygrade, 'alloystrength':alloystrength,
+                'bendstress': bendstress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
+                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
     return render(request,'structure/sectionView.html',context)
 
 

@@ -48,15 +48,15 @@
   <a class = "btn btn-info"  href = "#" style = "display: flex; justify-content: center;"> View Report &#10140; </a>
   <br><br>
 
-  <script type = "text/javascript">
+  <p>AlloyGrade : {{alloygrade}}</p>
+  <p>AlloyStrength : {{alloystrength}}</p>
+  <p>lwidth : {{lwidth}}</p>
+  <p>ShapeChoice : {{shapeChoice}}</p>
+  <label for="testing">AlloyGrade =  </label>
+  <input type="text" id="testing" name="testing"><br><br>
+  <button onclick="testPop()">Test</button>
 
-    window.addEventListener('load' , () => {
-      const alloygrade = localStorage.getItem('ALLOYGRADE');
-      const alloystrength = sessionStorage.getItem('ALLOYSTRENGTH');
-      
-      console.log(alloygrade);
-      console.log(alloystrength);
-    });
+  <script type = "text/javascript">
 
   
     function populate() {
@@ -95,6 +95,10 @@
           document.getElementById('sectionDrawing').src = '{{ MEDIA_URL }}{{ name.drawing }}';
         }
       {% endfor %}  
+    }
+    function testPop(){
+      testSelect = document.getElementById("testing");
+      testSelect.value = '{{alloygrade}}' ;
     }
 
   </script>

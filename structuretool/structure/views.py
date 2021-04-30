@@ -14,6 +14,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProjectDetailsForm, MatStrengthForm, SectionLibraryForm, SectionFormTwo
 from .models import ProjectDetails, SimpleTable, AlloyGrade, MatStrength, SectionLibrary
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
+from xhtml2pdf import pisa
+from django.template.loader import get_template
 
 
 def home(request):
@@ -275,6 +277,44 @@ def sectionView(request,pk):
                 'bendstress': bendstress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
                 'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
     return render(request,'structure/sectionView.html',context)
+
+
+
+def windowsPDF(request,pk):
+    template_path = "structure/windowsPDF.html"
+
+    if request.method == 'POST':
+        alloygrade = request.POST.get('alloygrade')
+        alloystrength = request.POST.get('alloyStrength')
+        bendstress = request.POST.get('bendStress')
+        maxDeflection = request.POST.get('maxDeflection')
+        windLoad = request.POST.get('windLoad')
+        shapeChoice = request.POST.get('shapeChoice')
+        liCoef = request.POST.get('liCoef')
+        mdCoef = request.POST.get('mdCoef')
+        length = request.POST.get('length')
+        lwidth = request.POST.get('lwidth')
+        rwidth = request.POST.get('rwidth')
+        
+    
+    context = {'alloygrade':alloygrade, 'alloystrength':alloystrength,
+                'bendstress': bendstress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
+                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
+                
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
     

@@ -107,24 +107,21 @@ class AlloyListCreate(LoginRequiredMixin, CreateView):
     model2 = MatStrength
     model3 = SectionLibrary
     template_name = 'structure/structureCalc.html'
+    
+    # self.request.session['alloystrength'] = alloyStrength
+    # self.request.session['bendstress'] = bendStress
+    # self.request.session['maxDeflection'] = maxDeflection
+    # self.request.session['windLoad'] = windLoad
+    # self.request.session['shapeChoice'] = shapeChoice
+    # self.request.session['liCoef'] = liCoef
+    # self.request.session['mdCoef'] = mdCoef
+    # self.request.session['length'] = length
+    # self.request.session['lwidth'] = lwidth
+    # self.request.session['rwidth'] = rwidth
+
 
     def get_queryset(self):
         return AlloyGrade.objects.filter(owner = self.request.user)
-
-    # def post(self, request, *args, **kwargs):
-    #     self.request.session['alloygrade'] = form.cleaned_data["alloygrade"]
-    #     self.request.session['alloystrength'] = form.cleaned_data["alloyStrength"]
-    #     self.request.session['bendstress'] = form.cleaned_data["bendStress"]
-    #     self.request.session['maxDeflection'] = form.cleaned_data["maxDeflection"]
-    #     self.request.session['windLoad'] = form.cleaned_data["windLoad"]
-    #     self.request.session['shapeChoice'] = form.cleaned_data["shapeChocie"]
-    #     self.request.session['liCoef'] = form.cleaned_data["liCoef"]
-    #     self.request.session['mdCoef'] = form.cleaned_data["mdCoef"]
-    #     self.request.session['length'] = form.cleaned_data["length"]
-    #     self.request.session['lwidth'] = form.cleaned_data["lwidth"]
-    #     self.request.session['rwidth'] = form.cleaned_data["rwidth"]
-    #     return render(request, self.template_name, {'form': form})
-
 
 
     def form_valid(self, form):
@@ -261,45 +258,42 @@ def sectionView(request,pk):
     sectionNames = SectionLibrary.objects.values_list("sectionName")
     if request.method == 'POST':
         alloygrade = request.POST.get('alloygrade')
+        request.session['alloygradeSession'] = alloygrade
         alloystrength = request.POST.get('alloyStrength')
-        bendstress = request.POST.get('bendStress')
+        request.session['alloyStrengthSession'] = alloystrength
+        bendStress = request.POST.get('bendStress')
+        request.session['bendStressSession'] = bendStress
         maxDeflection = request.POST.get('maxDeflection')
+        request.session['maxDeflectionSession'] = maxDeflection
         windLoad = request.POST.get('windLoad')
+        request.session['windLoadSession'] = windLoad
         shapeChoice = request.POST.get('shapeChoice')
+        request.session['shapeChoiceSession'] = shapeChoice
         liCoef = request.POST.get('liCoef')
+        request.session['liCoefSession'] = liCoef
         mdCoef = request.POST.get('mdCoef')
+        request.session['mdCoefSession'] = mdCoef
         length = request.POST.get('length')
+        request.session['lengthSession'] = length
         lwidth = request.POST.get('lwidth')
+        request.session['lwidthSession'] = lwidth
         rwidth = request.POST.get('rwidth')
+        request.session['rwidthSession'] = rwidth
         
     query = SectionLibrary.objects.all()
     context = {'sections': sections,'sectionNames':sectionNames, 'query':query, 'alloygrade':alloygrade, 'alloystrength':alloystrength,
-                'bendstress': bendstress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
-                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
+                'bendStress': bendStress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
+                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth }
     return render(request,'structure/sectionView.html',context)
 
 
 
 def windowsPDF(request,pk):
     template_path = "structure/windowsPDF.html"
-
-    if request.method == 'POST':
-        alloygrade = request.POST.get('alloygrade')
-        alloystrength = request.POST.get('alloyStrength')
-        bendstress = request.POST.get('bendStress')
-        maxDeflection = request.POST.get('maxDeflection')
-        windLoad = request.POST.get('windLoad')
-        shapeChoice = request.POST.get('shapeChoice')
-        liCoef = request.POST.get('liCoef')
-        mdCoef = request.POST.get('mdCoef')
-        length = request.POST.get('length')
-        lwidth = request.POST.get('lwidth')
-        rwidth = request.POST.get('rwidth')
-        
-    
-    context = {'alloygrade':alloygrade, 'alloystrength':alloystrength,
-                'bendstress': bendstress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
-                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
+    alloygradeSession = request.session['alloygradeSession']
+    alloyStrengthSession = request.session['alloyStrengthSession']
+      
+    context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

@@ -14,40 +14,46 @@
 {% block content %}
 
   <h4> Choice of Section </h4>
-  <div class = "dropdown">
-    <label for="sectionview">System:</label>      
-    <select id = "slct1" name = "sectionview" class = "form-control" onClick = "populate()">
-      {% for result in sections %}
-        <option>{{ result }}</option> 
-      {% endfor %}
-    </select> 
-  </div>
-
-  <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-    <label class="form-check-label" for="flexSwitchCheckChecked"> Automatically select the best option</label>
-  </div>
-
-  <div class = "dropdown">
-    <label for="sectionNames">SectionNames:</label>      
-    <select id = "slct2" name = "sectionNames" class = "form-control" onClick = "poputlateTwo()">
-    </select>
-  </div>
-
-  <div class = "content-section" id = "sectionProperties">
-    <p><i>Properties of the combined sections</i></p>
-    <div class = "sectionLabel">
-      <p><i>Section Drawing</i></p>
+  <form action = "windowsPDF/" method = "POST">
+    {% csrf_token %}
+    <div class = "dropdown">
+      <label for="sectionview">System:</label>      
+      <select id = "slct1" name = "sectionview" class = "form-control" onClick = "populate()">
+        {% for result in sections %}
+          <option>{{ result }}</option> 
+        {% endfor %}
+      </select> 
     </div>
-    <label for="property1">I<sub>xx</sub> (cm<sup>4</sup>) = </label>
-    <input type="text" id="property1" name="property1"><br><br>
-    <label for="property2">W<sub>xx</sub> (cm<sup>3</sup>) = </label>
-    <input type="text" id="property2" name="property2"><br><br>
-    <img id = "sectionDrawing" class = "sectionDrawing">
-  </div>
-  <a class = "btn btn-info"  href = "#" style = "display: flex; justify-content: center;"> View Report &#10140; </a>
+  
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked"> Automatically select the best option</label>
+    </div>
+  
+    <div class = "dropdown">
+      <label for="sectionNames">SectionNames:</label>      
+      <select id = "slct2" name = "sectionNames" class = "form-control" onClick = "poputlateTwo()">
+      </select>
+    </div>
+  
+    <div class = "content-section" id = "sectionProperties">
+      <p><i>Properties of the combined sections</i></p>
+      <div class = "sectionLabel">
+        <p><i>Section Drawing</i></p>
+      </div>
+      <label for="property1">I<sub>xx</sub> (cm<sup>4</sup>) = </label>
+      <input type="text" id="property1" name="property1"><br><br>
+      <label for="property2">W<sub>xx</sub> (cm<sup>3</sup>) = </label>
+      <input type="text" id="property2" name="property2"><br><br>
+      <img id = "sectionDrawing" name = "sectionDrawing" class = "sectionDrawing">
+      
+    </div>
+  
+  
+  <button class = "btn btn-info" style = "display: flex; justify-content: center;" type="submit"> View Report &#10140; </button>
+  </form>
+
   <br><br>
-  <p>alloygrade : {{alloygradeSession}}</p>
 
   <script type = "text/javascript">
 

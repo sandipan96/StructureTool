@@ -301,9 +301,10 @@ def windowsPDF(request,pk):
         ixx = request.POST.get('property1')
         wxx = request.POST.get('property2')
         sectionDrawing = request.POST.get('sectionDrawing')
-      
+    
+    query_drawing = SectionLibrary.objects.get(sectionName = systemName)
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'system':system, 'systemName':systemName, 'ixx':ixx, 'wxx':wxx,
-                'sectionDrawing':sectionDrawing, 'query_result':query_result}
+                'sectionDrawing':sectionDrawing, 'query_result':query_result, 'query_drawing' : query_drawing}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

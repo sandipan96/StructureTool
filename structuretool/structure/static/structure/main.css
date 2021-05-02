@@ -271,4 +271,19 @@ body {
     text-align:left;
   }
 
+  #upp {
+    width: 100%;
+    margin-top:30px;
+  }
+  .alignleft,
+  .alignright {
+    display: inline-block;
+  }
+  .alignleft {
+    padding-left: 50px;
+  }
+  .alignright {
+    padding-right: 100px;
+  }
+
 

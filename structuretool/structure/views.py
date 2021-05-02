@@ -19,6 +19,7 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.contrib.staticfiles import finders
+from datetime import date
 
 
 def home(request):
@@ -324,7 +325,13 @@ def windowsPDF(request,pk):
     template_path = "structure/windowsPDF.html"
     alloygradeSession = request.session['alloygradeSession']
     alloyStrengthSession = request.session['alloyStrengthSession']
+    bendStressSession = request.session['bendStressSession']
+    maxDeflectionSession = request.session['maxDeflectionSession']
+    lengthSession = request.session['lengthSession']
+    lwidthSession = request.session['lwidthSession'] 
+    rwidthSession = request.session['rwidthSession']
     query_result = ProjectDetails.objects.get(pk = pk)
+    today = date.today()
 
 
     if request.method == 'POST':
@@ -335,8 +342,10 @@ def windowsPDF(request,pk):
         sectionDrawing = request.POST.get('sectionDrawing')
     
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
-    context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'system':system, 'systemName':systemName, 'ixx':ixx, 'wxx':wxx,
-                'sectionDrawing':sectionDrawing, 'query_result':query_result, 'query_drawing' : query_drawing}
+    context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
+                'lengthSession': lengthSession, 'lwidthSession' : lwidthSession, 'rwidthSession' : rwidthSession, 'system':system, 'systemName':systemName, 
+                'maxDeflectionSession': maxDeflectionSession, 'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
+                'query_drawing' : query_drawing, 'today':today}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

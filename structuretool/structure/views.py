@@ -292,6 +292,7 @@ def windowsPDF(request,pk):
     template_path = "structure/windowsPDF.html"
     alloygradeSession = request.session['alloygradeSession']
     alloyStrengthSession = request.session['alloyStrengthSession']
+    query_result = ProjectDetails.objects.get(pk = pk)
 
 
     if request.method == 'POST':
@@ -300,10 +301,9 @@ def windowsPDF(request,pk):
         ixx = request.POST.get('property1')
         wxx = request.POST.get('property2')
         sectionDrawing = request.POST.get('sectionDrawing')
-        print(sectionDrawing)
       
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'system':system, 'systemName':systemName, 'ixx':ixx, 'wxx':wxx,
-                'sectionDrawing':sectionDrawing}
+                'sectionDrawing':sectionDrawing, 'query_result':query_result}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

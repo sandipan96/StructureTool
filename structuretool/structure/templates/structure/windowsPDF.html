@@ -32,16 +32,16 @@
       <tr>
         <td></td>
         <td></td>
-        <td><font size = "4"> Project Name : {{query_result.clientName}}</font></td>
+        <td><font size = "4"> Client Name : {{query_result.clientName}}</font></td>
       </tr>
     </table>
     <p style = "padding-left: 20px;"><font size = "4">Alloygrade : {{alloygradeSession}}</font></p>
     <p style = "padding-left: 20px;"><font size = "4">Material Strength according to : {{alloyStrengthSession}}</font></p>
     <p style = "padding-left: 20px;"><font size = "4">Permissible Bend Stress : {{bendStressSession}} kg/cm<sup>2</sup></font></p>
     <p style = "padding-left: 20px;"><font size = "4">Elastic Modulus of Aluminium (E) : 700000 kg/cm<sup>2</sup> </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Unsupported length l : {{lengthSession}} m </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Left Panel Width a : {{lwidthSession}} m </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Right Panel Width b : {{rwidthSession}} m </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Unsupported length (l) : {{lengthSession}} m </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Left Panel Width (a) : {{lwidthSession}} m </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Right Panel Width (b) : {{rwidthSession}} m </font></p>
     <p style = "padding-left: 20px;"><font size = "4">Maximum Allowable Deflection : {{maxDeflectionSession}} mm </font></p>
     <p style = "padding-left: 20px;"><font size = "4">Required Moment of Intertia &GreaterEqual; ? cm<sup>4</sup> </font></p>
     <hr style = "margin-bottom: 30px;">
@@ -49,14 +49,46 @@
     <p style = "padding-left: 20px;"><font size = "4">Combined Interia of the Select  &nbsp; I<sub>xx</sub> = {{ixx}} cm<sup>4</sup> </font></p>
     <p style = "padding-left: 20px;"><font size = "4">(Please refer to the drawings)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; > &nbsp;? cm<sup>4</sup> </font></p>
     <p style = "padding-left: 20px;"><font size = "4">Actual Deflection f <sub>actual</sub> = ? mm &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; which is &lt; ? mm</font>  </p>
-    <table id="upp">
+    <table id="upp" style = "border: 1px solid black;">
       <tr>
         <td><font size = "6">Criteria Satisfied/Not Satisfied</font></td>
         <td><font size = "4">Properties of Combined Section<br> I<sub>xx</sub> : {{ixx}} <br> W<sub>xx</sub> : {{wxx}}</font></td>
         <td><img src = '{{query_drawing.drawing.path}}'></td>
       </tr>
     </table>
-    <hr>
+    <hr style = "margin-top: 15px;">
+    <p style = "text-align: center;">1</p>
+    <br>
+    <table id="upp">
+      <tr>
+        <td>
+          <img class = "alignleft" src= "D:\MyProjects\tool\structuretool\structure\static\structure\logo3.png" width = "70" height = "25">
+        </td>
+        <td> <h1 class = "alignright"> <font size="7">Structural Analysis Report</font></h1></td>
+        <td><font size = "4">{{today}}</font></td>
+      </tr>
+    </table>
+    <hr style = "margin-bottom: 30px;">
+    <h3 style = "padding-left: 20px;"><font size = "6">Check For Ultimate Limit State : </font> </h3>
+    <table id="upp">
+      <tr>
+        <td>
+          <p><font size = "4">A check of the bending stress to which the cross-section of the profile will be subjected to ensure that the calculated stress is less than the 
+            permitted stress for the material, that is to say,</font></p> <br> <font size = "7"> M<sup>*</sup> / W<sub>xx</sub> = &sigma;<sup>*</sup><sub>adm</sub>
+        </td>
+        <td></td>
+        <td><img class = "alignright" src= "D:\MyProjects\tool\structuretool\structure\static\structure\deflDiagram.JPG"></td>
+      </tr>
+    </table>
+    <p style = "padding-left: 20px;"><font size = "4">M<sup>*</sup> : the service moment calculation (kg-cm)</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">&sigma;<sub>adm</sub> : the permissable bending stress in aluminium (kg/cm<sup>2</sup>)</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">&sigma;<sup>*</sup><sub>adm</sub> : the permitted stress calculation (kg/cm<sup>2</sup>)</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">W<sub>xx</sub> : the resistance moment / sectional modulus of the section (cm<sup>3</sup>)</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">W<sub>xx</sub> : (provided) {{wxx}}(cm<sup>3</sup>)</font></p>
+    
+
+    
+   
     
     
     <!--<p>System : {{system}}</p>

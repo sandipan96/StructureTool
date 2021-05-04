@@ -57,17 +57,17 @@
         <option> 300 </option>
       </select>
       or
-      <input type="number" max = "23">
+      <input type="number" min = "5" max = "23">
       mm   (whichever is less)
     </p>
     <p>
       Design Wind Load :
-      P = <input id = "windLoad" name = "windLoad" type = "number" oninput="lengthConverter(this.value)"> Pa
+      P = <input id = "windLoad" name = "windLoad" type = "number" min = "0" oninput="lengthConverter(this.value)"> Pa
         or <span id = "output"></span> kg/cm
     </p>
     <p>
       Type of Loading : 
-      <select name = "shapeChoice" id = "shapeChoice">
+      <select name = "shapeChoice" id = "shapeChoice" onchange="draw()">
         <option> Rectangular </option>
         <option> Trapezoidal </option>
       </select>
@@ -102,7 +102,7 @@
       <button class = "btn btn-info" type="submit"> Continue &#10140; </button>
     </p>
     </form>
-    <button class = "btn btn-secondary" style = "position: relative; top : -54px; right: -125px;" onclick="draw()">Show Diagram</button>  
+    <button class = "btn btn-secondary" style = "position: relative; top : -54px; right: -125px;" onclick="draw()" >Show Diagram</button>  
   
 
     <p></p>
@@ -161,37 +161,70 @@
           drawHLabel(ctx4,rwidth,"b");        
           
         } else if (shape.value == "Trapezoidal") {
-            ctx.canvas.width  = lwidth * 100;
-            ctx.canvas.height = length * 100;
-            ctx.fillStyle = "#808080";
-            ctx.beginPath();
-            ctx.moveTo(lwidth*100,length*100);
-            ctx.lineTo(lwidth*100*0.5,length*100*0.75);
-            ctx.lineTo(lwidth*100*0.5,length*100*0.25);
-            ctx.lineTo(lwidth*100,length-length);
-            ctx.closePath();
-            ctx.stroke();
-            ctx.fill();
-            ctx3.canvas.width = lwidth * 100;
-            drawHLabel(ctx3,lwidth,"a");
-            ctx5.canvas.height = length * 100;
-            drawVLabel(ctx5,length);
+            if (length <= lwidth) {
+              ctx.canvas.width  = lwidth * 100;
+              ctx.canvas.height = length * 100;
+              ctx.fillStyle = "#808080";
+              ctx.beginPath();
+              ctx.moveTo(lwidth*100,length*100);
+              ctx.lineTo(lwidth*100*0.5,length*100*0.5);
+              ctx.lineTo(lwidth*100,length-length);
+              ctx.closePath();
+              ctx.stroke();
+              ctx.fill();
+              ctx3.canvas.width = lwidth * 100;
+              drawHLabel(ctx3,lwidth,"a");
+              ctx5.canvas.height = length * 100;
+              drawVLabel(ctx5,length);
+            }
+            else{
+              ctx.canvas.width  = lwidth * 100;
+              ctx.canvas.height = length * 100;
+              ctx.fillStyle = "#808080";
+              ctx.beginPath();
+              ctx.moveTo(lwidth*100,length*100);
+              ctx.lineTo(lwidth*100*0.5,length*100*0.75);
+              ctx.lineTo(lwidth*100*0.5,length*100*0.25);
+              ctx.lineTo(lwidth*100,length-length);
+              ctx.closePath();
+              ctx.stroke();
+              ctx.fill();
+              ctx3.canvas.width = lwidth * 100;
+              drawHLabel(ctx3,lwidth,"a");
+              ctx5.canvas.height = length * 100;
+              drawVLabel(ctx5,length);
+            }
+            if (length <= rwidth){
+              ctx2.canvas.width  = rwidth * 100;
+              ctx2.canvas.height = length * 100;
+              ctx2.fillStyle = "#808080";
+              ctx2.beginPath();
+              ctx2.moveTo(rwidth-rwidth,length-length);
+              ctx2.lineTo(rwidth*100*0.5,length*100*0.5);
+              ctx2.lineTo(rwidth-rwidth,length*100);
+              ctx2.closePath();
+              ctx2.stroke();
+              ctx2.fill();
+              ctx4.canvas.width = rwidth * 100;
+              drawHLabel(ctx4,rwidth,"b");
+            }
+            else{
+              ctx2.canvas.width  = rwidth * 100;
+              ctx2.canvas.height = length * 100;
+              ctx2.fillStyle = "#808080";
+              ctx2.beginPath();
+              ctx2.moveTo(rwidth-rwidth,length-length);
+              ctx2.lineTo(rwidth*100*0.5,length*100*0.25);
+              ctx2.lineTo(rwidth*100*0.5,length*100*0.75);
+              ctx2.lineTo(rwidth-rwidth,length*100);
+              ctx2.closePath();
+              ctx2.stroke();
+              ctx2.fill();
+              ctx4.canvas.width = rwidth * 100;
+              drawHLabel(ctx4,rwidth,"b");
 
-            ctx2.canvas.width  = rwidth * 100;
-            ctx2.canvas.height = length * 100;
-            ctx2.fillStyle = "#808080";
-            ctx2.beginPath();
-            ctx2.moveTo(rwidth-rwidth,length-length);
-            ctx2.lineTo(rwidth*100*0.5,length*100*0.25);
-            ctx2.lineTo(rwidth*100*0.5,length*100*0.75);
-            ctx2.lineTo(rwidth-rwidth,length*100);
-            ctx2.closePath();
-            ctx2.stroke();
-            ctx2.fill();
-            ctx4.canvas.width = rwidth * 100;
-            drawHLabel(ctx4,rwidth,"b");
+            }    
         }
-
       }
       function drawHLabel(context,width,panel){
         context.beginPath();

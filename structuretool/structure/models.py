@@ -39,7 +39,7 @@ class AlloyGrade(models.Model):
 class MatStrength(models.Model):
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
     name = models.CharField(max_length = 20)
-    bendStress = models.FloatField()
+    bendStress = models.IntegerField()
 
     def __str__(self):
         return self.name

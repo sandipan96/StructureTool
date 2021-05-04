@@ -20,6 +20,8 @@ from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.contrib.staticfiles import finders
 from datetime import date
+from plotly.offline import plot
+from plotly.graph_objs import Scatter
 
 
 def home(request):
@@ -332,8 +334,7 @@ def windowsPDF(request,pk):
     rwidthSession = request.session['rwidthSession']
     query_result = ProjectDetails.objects.get(pk = pk)
     today = date.today()
-
-
+    
     if request.method == 'POST':
         system = request.POST.get('sectionview')
         systemName = request.POST.get('sectionNames')

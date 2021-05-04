@@ -62,7 +62,6 @@
       clear();
       select = document.getElementById("slct1")
       
-      console.log(select.value);
       {% for name in query %}
         if('{{name.system}}' == select.value){
           let nameSelect = document.querySelector('#slct2');
@@ -73,8 +72,15 @@
           nameSelect.appendChild(option);
         }
       {% endfor %}
-      //console.log(names);
-
+      
+      select2 = document.getElementById("slct2");
+      {% for name in query %}
+        if('{{name.sectionName}}' == select2.value){
+          document.getElementById('property1').value = '{{name.ixx}}' ;
+          document.getElementById('property2').value = '{{name.wxx}}' ;
+          document.getElementById('sectionDrawing').src = '{{ MEDIA_URL }}{{ name.drawing }}';
+        }
+      {% endfor %}  
     }
 
     function clear(){
@@ -95,6 +101,7 @@
         }
       {% endfor %}  
     }
+    window.onload = populate;
 
   </script>
 {% endblock content %}

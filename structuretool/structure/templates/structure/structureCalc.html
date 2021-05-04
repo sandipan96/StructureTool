@@ -21,7 +21,7 @@
     <form action = "sectionView/" method = "POST">
       {% csrf_token %}
       <div class = "dropdown">
-        <label for="alloygrade">Alluminium Alloy Grade:</label>      
+        <label for="alloygrade">Aluminium Alloy Grade:</label>      
         <select id = "alloygrade" name = "alloygrade" class = "form-control">
           {% for result in objects %}
             <option>{{ result.alloygrade }}</option> 
@@ -41,7 +41,7 @@
       <input type="text" id="bendStress" name="bendStress"><br><br> 
     
 
-    <p>Elastic Modulus of Alluminium (E) : 700000 kg/cm <sup>2</sup></p>
+    <p>Elastic Modulus of Aluminium (E) : 700000 kg/cm <sup>2</sup></p>
     <p>
       Maximum Allowable Deflection (f<sub>m</sub>): l/ 
       <select id = "maxDeflection" name = "maxDeflection">
@@ -263,36 +263,11 @@
           if('{{item.name}}' == select.value){
             document.getElementById('bendStress').value = '{{item.bendStress}}' ;
           }
-      {% endfor %} 
+        {% endfor %} 
       }
 
-      function passVars(){
-        const alloygrade = document.getElementById('alloygrade').value;
-        const alloystrength = document.getElementById('alloyStrength').value;
-        const bendStress = document.getElementById('bendStress').value;
-        const maxDeflection = document.getElementById('maxDeflection').value;
-        const windLoad = document.getElementById('windLoad').value;
-        const shapeChoice = document.getElementById('shapeChoice').value;
-        const liCoef = document.getElementById('liCoef').value;
-        const mdCoef = document.getElementById('mdCoef').value;
-        const length = document.getElementById('length').value;
-        const lwidth = document.getElementById('ldwith').value;
-        const rwidth = document.getElementById('rwidth').value;
+      window.onload = selectBendStress;
 
-        localStorage.setItem("ALLOYGRADE",alloygrade);
-        sessionStorage.setItem("ALLOYSTRENGTH",alloystrength);
-        sessionStorage.setItem("BENDSTRESS",bendStress);
-        sessionStorage.setItem("MAXDEFLECTION",maxDeflection);
-        sessionStorage.setItem("WINDLOAD",windLoad);
-        sessionStorage.setItem("SHAPECHOICE",shapeChoice);
-        sessionStorage.setItem("LICOEF",liCoef);
-        sessionStorage.setItem("MDCOEF",mdCoef);
-        sessionStorage.setItem("LENGTH",length);
-        sessionStorage.setItem("LWIDTH",lwidth);
-        sessionStorage.setItem("RWIDTH",rwidth);
-
-        return;
-      }  
     </script>
     
 {% endblock content %}

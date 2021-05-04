@@ -20,8 +20,8 @@ from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.contrib.staticfiles import finders
 from datetime import date
-from plotly.offline import plot
-from plotly.graph_objs import Scatter
+import numpy as np
+import plotly.graph_objects as go
 
 
 def home(request):
@@ -285,11 +285,33 @@ def sectionView(request,pk):
         request.session['lwidthSession'] = lwidth
         rwidth = request.POST.get('rwidth')
         request.session['rwidthSession'] = rwidth
+    np.random.seed(1)
+
+    N = 100
+    x = np.random.rand(N)
+    y = np.random.rand(N)
+    colors = np.random.rand(N)
+    sz = np.random.rand(N) * 30
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=x,
+        y=y,
+        mode="markers",
+        marker=go.scatter.Marker(
+            size=sz,
+            color=colors,
+            opacity=0.6,
+            colorscale="Viridis"
+        )
+    ))
+    fig.write_image("structure/static/structure/fig1.jpeg")
+
         
     query = SectionLibrary.objects.all()
     context = {'sections': sections,'sectionNames':sectionNames, 'query':query, 'alloygrade':alloygrade, 'alloystrength':alloystrength,
                 'bendStress': bendStress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
-                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth }
+                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth, 'fig':fig}
     return render(request,'structure/sectionView.html',context)
 
 # def link_callback(uri, rel):

@@ -271,6 +271,8 @@ def sectionView(request,pk):
         request.session['bendStressSession'] = bendStress
         maxDeflection = request.POST.get('maxDeflection')
         request.session['maxDeflectionSession'] = maxDeflection
+        maxDeflection2 = request.POST.get('maxDeflection2')
+        request.session['maxDeflection2Session'] = maxDeflection2
         windLoad = request.POST.get('windLoad')
         request.session['windLoadSession'] = windLoad
         shapeChoice = request.POST.get('shapeChoice')
@@ -285,33 +287,35 @@ def sectionView(request,pk):
         request.session['lwidthSession'] = lwidth
         rwidth = request.POST.get('rwidth')
         request.session['rwidthSession'] = rwidth
-    np.random.seed(1)
 
-    N = 100
-    x = np.random.rand(N)
-    y = np.random.rand(N)
-    colors = np.random.rand(N)
-    sz = np.random.rand(N) * 30
+        
+    # np.random.seed(1)
 
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=x,
-        y=y,
-        mode="markers",
-        marker=go.scatter.Marker(
-            size=sz,
-            color=colors,
-            opacity=0.6,
-            colorscale="Viridis"
-        )
-    ))
-    fig.write_image("structure/static/structure/fig1.jpeg")
+    # N = 100
+    # x = np.random.rand(N)
+    # y = np.random.rand(N)
+    # colors = np.random.rand(N)
+    # sz = np.random.rand(N) * 30
+
+    # fig = go.Figure()
+    # fig.add_trace(go.Scatter(
+    #     x=x,
+    #     y=y,
+    #     mode="markers",
+    #     marker=go.scatter.Marker(
+    #         size=sz,
+    #         color=colors,
+    #         opacity=0.6,
+    #         colorscale="Viridis"
+    #     )
+    # ))
+    # fig.write_image("structure/static/structure/fig1.jpeg")
 
         
     query = SectionLibrary.objects.all()
     context = {'sections': sections,'sectionNames':sectionNames, 'query':query, 'alloygrade':alloygrade, 'alloystrength':alloystrength,
                 'bendStress': bendStress, 'maxDeflection': maxDeflection, 'windLoad': windLoad, 'shapeChoice' : shapeChoice, 'liCoef':liCoef,
-                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth, 'fig':fig}
+                'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
     return render(request,'structure/sectionView.html',context)
 
 # def link_callback(uri, rel):
@@ -350,25 +354,68 @@ def windowsPDF(request,pk):
     alloygradeSession = request.session['alloygradeSession']
     alloyStrengthSession = request.session['alloyStrengthSession']
     bendStressSession = request.session['bendStressSession']
+    windLoadSession = request.session['windLoadSession']
     maxDeflectionSession = request.session['maxDeflectionSession']
+    maxDeflection2Session = request.session['maxDeflection2Session']
     lengthSession = request.session['lengthSession']
     lwidthSession = request.session['lwidthSession'] 
     rwidthSession = request.session['rwidthSession']
     query_result = ProjectDetails.objects.get(pk = pk)
     today = date.today()
-    
+
+    finalMaxDefl = 0
+    maxDefl = (float(lengthSession)/float(maxDeflectionSession)) * 1000
+    if maxDefl < float(maxDeflection2Session):
+        finalMaxDefl = maxDefl
+    else:
+        finalMaxDefl = maxDeflection2Session
+
+    finalMaxDefl = finalMaxDefl/10
+    finalMaxDeflRounded = round(finalMaxDefl,2)
+
+    loadWidth = (float(lwidthSession)/2) + (float(rwidthSession)/2)
+    windPressure = float(windLoadSession) * 0.000010197162129779
+    w = windPressure * loadWidth * 100
+    momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
+    momentInertiaRounded = round(momentInertia,2) 
+
     if request.method == 'POST':
         system = request.POST.get('sectionview')
         systemName = request.POST.get('sectionNames')
         ixx = request.POST.get('property1')
         wxx = request.POST.get('property2')
         sectionDrawing = request.POST.get('sectionDrawing')
+
+    inertiaSatisfied = "OKAY"
+    inertiaSign = ">"
+
+    if float(ixx) < momentInertia:
+        inertiaSatisfied = "NOT OKAY"
+        inertiaSign = "<"
+
+    fActual = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * float(ixx))
+    fActualRounded = round(fActual,2)
+
+    deflSatisfied = "OKAY"
+    deflSign = "<"
+
+    if fActual > finalMaxDefl:
+        deflSatisfied = "NOT OKAY"
+        deflSign = ">"
+
+    deflCriteria = ""
+
+    if (deflSatisfied == "OKAY" and inertiaSatisfied == "OKAY"):
+        deflCriteria = "CRITERIA SATISFIED"
+    else:
+        deflCriteria = "CRITERIA NOT SATISFIED"
     
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
                 'lengthSession': lengthSession, 'lwidthSession' : lwidthSession, 'rwidthSession' : rwidthSession, 'system':system, 'systemName':systemName, 
-                'maxDeflectionSession': maxDeflectionSession, 'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
-                'query_drawing' : query_drawing, 'today':today}
+                'maxDeflectionSession': maxDeflectionSession, 'maxDeflection2Session': maxDeflection2Session,'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
+                'query_drawing' : query_drawing, 'today':today, 'finalMaxDeflRounded' : finalMaxDeflRounded, 'momentInertiaRounded':momentInertiaRounded,'inertiaSatisfied':inertiaSatisfied,
+                'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

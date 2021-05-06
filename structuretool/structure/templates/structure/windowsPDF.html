@@ -43,16 +43,16 @@
     <p style = "padding-left: 20px;"><font size = "4">Unsupported length (l) : {{lengthSession}} m </font></p>
     <p style = "padding-left: 20px;"><font size = "4">Left Panel Width (a) : {{lwidthSession}} m </font></p>
     <p style = "padding-left: 20px;"><font size = "4">Right Panel Width (b) : {{rwidthSession}} m </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Maximum Allowable Deflection : {{maxDeflectionSession}} mm </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Required Moment of Intertia &GreaterEqual; ? cm<sup>4</sup> </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Maximum Allowable Deflection f<sub>max</sub> : {{finalMaxDeflRounded}} cm </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Required Moment of Intertia &GreaterEqual; {{momentInertiaRounded}} cm<sup>4</sup> </font></p>
     <hr style = "margin-bottom: 30px;">
     <h3 style = "padding-left: 20px; margin-bottom: 20px;"><font size = "6">Check For Serviceability Limit State (Deflection) : </font> </h3>
     <p style = "padding-left: 20px;"><font size = "4">Combined Interia of the Select  &nbsp; I<sub>xx</sub> = {{ixx}} cm<sup>4</sup> </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">(Please refer to the drawings)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; > &nbsp;? cm<sup>4</sup> </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Actual Deflection f <sub>actual</sub> = ? mm &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; which is &lt; ? mm</font>  </p>
+    <p style = "padding-left: 20px;"><font size = "4">(Please refer to the drawings)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{inertiaSign}} &nbsp;{{momentInertiaRounded}} cm<sup>4</sup> ({{inertiaSatisfied}}) </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Actual Deflection f <sub>actual</sub> = {{fActualRounded}} cm &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; which is {{deflSign}} {{finalMaxDeflRounded}} cm ({{deflSatisfied}})</font>  </p>
     <table id="upp" style = "border: 1px solid black;">
       <tr>
-        <td><font size = "6">Criteria Satisfied/Not Satisfied</font></td>
+        <td><font size = "6">{{deflCriteria}}</font></td>
         <td><font size = "4">Properties of Combined Section<br> I<sub>xx</sub> : {{ixx}} <br> W<sub>xx</sub> : {{wxx}}</font></td>
         <td><img src = '{{query_drawing.drawing.path}}'></td>
       </tr>

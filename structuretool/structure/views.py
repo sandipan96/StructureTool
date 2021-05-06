@@ -409,13 +409,15 @@ def windowsPDF(request,pk):
         deflCriteria = "CRITERIA SATISFIED"
     else:
         deflCriteria = "CRITERIA NOT SATISFIED"
+
+    maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
     
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
                 'lengthSession': lengthSession, 'lwidthSession' : lwidthSession, 'rwidthSession' : rwidthSession, 'system':system, 'systemName':systemName, 
                 'maxDeflectionSession': maxDeflectionSession, 'maxDeflection2Session': maxDeflection2Session,'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
                 'query_drawing' : query_drawing, 'today':today, 'finalMaxDeflRounded' : finalMaxDeflRounded, 'momentInertiaRounded':momentInertiaRounded,'inertiaSatisfied':inertiaSatisfied,
-                'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria}
+                'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria, 'maxBendMoment' : maxBendMoment}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

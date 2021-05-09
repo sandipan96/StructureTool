@@ -370,7 +370,7 @@ def windowsPDF(request,pk):
     else:
         finalMaxDefl = maxDeflection2Session
 
-    finalMaxDefl = finalMaxDefl/10
+    finalMaxDefl = float(finalMaxDefl)/10
     finalMaxDeflRounded = round(finalMaxDefl,2)
 
     loadWidth = (float(lwidthSession)/2) + (float(rwidthSession)/2)
@@ -411,13 +411,68 @@ def windowsPDF(request,pk):
         deflCriteria = "CRITERIA NOT SATISFIED"
 
     maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
-    
+    maxBendMomentRounded = round(maxBendMoment,2)
+
+
+    fig = go.Figure()
+    fig.update_xaxes(
+        range = [0,(float(lengthSession) * 100) + 50 ],
+        zeroline = False,
+    )
+    fig.update_yaxes(
+        range = [0,maxBendMoment + 5000],
+        zeroline = False,
+    )
+    paths = "M 0,0 Q {},{} {},0".format((float(lengthSession) * 100)/2,maxBendMoment*2,float(lengthSession) * 100)
+    fig.update_layout(
+        title = "Bending Moment Diagram under design wind load",
+        xaxis_title = "Unsupported Length in cm",
+        yaxis_title = "Bending Moment kg-cm",
+        shapes = [
+            dict(
+                type = "path",
+                path = paths,
+                line_color="RoyalBlue",
+            ),
+        ]
+    )
+    fig.add_hline(y = maxBendMoment, line_dash = "dash")
+    fig.write_image("structure/static/structure/fig.jpeg")
+
+
+    fig1 = go.Figure()
+    fig1.update_xaxes(
+        range = [0,(float(lengthSession) * 100) + 50 ],
+        zeroline = False,
+    )
+    fig1.update_yaxes(
+        range = [0,fActual + (fActual/10)],
+        zeroline = False,
+    )
+    paths1 = "M 0,0 Q {},{} {},0".format((float(lengthSession) * 100)/2,fActual*2,float(lengthSession) * 100)
+    fig1.update_layout(
+        title = "Deflection Diagram under design wind load",
+        xaxis_title = "Unsupported Length in cm",
+        yaxis_title = "Deflection in cm",
+        shapes = [
+            dict(
+                type = "path",
+                path = paths1,
+                line_color="Red",
+            ),
+        ]
+    )
+    fig1.add_hline(y = fActual, line_dash = "dash")
+    fig1.write_image("structure/static/structure/fig1.jpeg")
+
+
+
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
                 'lengthSession': lengthSession, 'lwidthSession' : lwidthSession, 'rwidthSession' : rwidthSession, 'system':system, 'systemName':systemName, 
                 'maxDeflectionSession': maxDeflectionSession, 'maxDeflection2Session': maxDeflection2Session,'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
                 'query_drawing' : query_drawing, 'today':today, 'finalMaxDeflRounded' : finalMaxDeflRounded, 'momentInertiaRounded':momentInertiaRounded,'inertiaSatisfied':inertiaSatisfied,
-                'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria, 'maxBendMoment' : maxBendMoment}
+                'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria, 'maxBendMomentRounded' : maxBendMomentRounded}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

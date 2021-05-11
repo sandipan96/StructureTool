@@ -395,8 +395,13 @@ def windowsPDF(request,pk):
         inertiaSatisfied = "NOT OKAY"
         inertiaSign = "<"
 
+    #change based on shape
+    #rectangle shape
     fActual = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * float(ixx))
     fActualRounded = round(fActual,2)
+
+    maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
+    maxBendMomentRounded = round(maxBendMoment,2)
 
     deflSatisfied = "OKAY"
     deflSign = "<"
@@ -411,10 +416,6 @@ def windowsPDF(request,pk):
         deflCriteria = "CRITERIA SATISFIED"
     else:
         deflCriteria = "CRITERIA NOT SATISFIED"
-
-    maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
-    maxBendMomentRounded = round(maxBendMoment,2)
-
 
     fig = go.Figure()
     fig.update_xaxes(

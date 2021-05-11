@@ -480,13 +480,24 @@ def windowsPDF(request,pk):
     maxPermStress = float(bendStressSession) / float(mdCoefSession)
     maxPermStressRounded = round(maxPermStress,2)
 
+    actualBendStress = serviceMoment / float(wxx)
+    actualBendStressRounded = round(actualBendStress, 2)
+    stressSign = "<"
+    stressSatisfied = "OKAY"
+    if actualBendStress > maxPermStress :
+        stressSign = ">"
+        stressSatisfied = "NOT OKAY"
+        
+    
+
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
                 'lengthSession': lengthSession, 'lwidthSession' : lwidthSession, 'rwidthSession' : rwidthSession, 'system':system, 'systemName':systemName, 
                 'maxDeflectionSession': maxDeflectionSession, 'maxDeflection2Session': maxDeflection2Session,'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
                 'query_drawing' : query_drawing, 'today':today, 'finalMaxDeflRounded' : finalMaxDeflRounded, 'momentInertiaRounded':momentInertiaRounded,'inertiaSatisfied':inertiaSatisfied,
                 'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria, 'maxBendMomentRounded' : maxBendMomentRounded,
-                'liCoefSession': liCoefSession, 'mdCoefSession': mdCoefSession, 'serviceMomentRounded': serviceMomentRounded, 'maxPermStressRounded' : maxPermStressRounded}
+                'liCoefSession': liCoefSession, 'mdCoefSession': mdCoefSession, 'serviceMomentRounded': serviceMomentRounded, 'maxPermStressRounded' : maxPermStressRounded,
+                'stressSign': stressSign, 'stressSatisfied': stressSatisfied, 'actualBendStressRounded':actualBendStressRounded}
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

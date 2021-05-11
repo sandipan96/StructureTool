@@ -438,13 +438,6 @@ def windowsPDF(request,pk):
                 line_color="RoyalBlue",
             ),
         ],
-        legend = dict(
-            orientation = "h",
-            yanchor = "bottom",
-            y = 1.02,
-            xanchor = "right",
-            x = 1
-        )
     )
     fig.add_hline(y = maxBendMoment, line_dash = "dash")
     fig.write_image("structure/static/structure/fig.jpeg")

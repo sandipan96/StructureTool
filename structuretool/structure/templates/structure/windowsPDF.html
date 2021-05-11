@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,7 +48,7 @@
     <p style = "padding-left: 20px;"><font size = "4">Required Moment of Intertia &GreaterEqual; {{momentInertiaRounded}} cm<sup>4</sup> </font></p>
     <hr style = "margin-bottom: 30px;">
     <h3 style = "padding-left: 20px; margin-bottom: 20px;"><font size = "6">Check For Serviceability Limit State (Deflection) : </font> </h3>
-    <p style = "padding-left: 20px;"><font size = "4">Combined Interia of the Select  &nbsp; I<sub>xx</sub> = {{ixx}} cm<sup>4</sup> &nbsp;&nbsp;&nbsp; which is &nbsp; {{inertiaSign}} &nbsp;{{momentInertiaRounded}} cm<sup>4</sup> ({{inertiaSatisfied}}) </font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Combined Inertia of the Select  &nbsp; I<sub>xx</sub> = {{ixx}} cm<sup>4</sup> &nbsp;&nbsp;&nbsp; which is &nbsp; {{inertiaSign}} &nbsp;{{momentInertiaRounded}} cm<sup>4</sup> ({{inertiaSatisfied}}) </font></p>
     <p style = "padding-left: 20px; margin-bottom : 0px;"><font size = "4">Actual Deflection f <sub>actual</sub> = {{fActualRounded}} cm  &nbsp;&nbsp;&nbsp; which is &nbsp; {{deflSign}} {{finalMaxDeflRounded}} cm ({{deflSatisfied}})</font>  </p>
     <table id="upp" style = "border: 1px solid black;">
       <tr>
@@ -56,9 +57,10 @@
         <td><img src = '{{query_drawing.drawing.path}}'></td>
       </tr>
     </table>
+    <br>
     <hr style = "margin-top: 15px;">
     <p style = "text-align: center;">1</p>
-    <br>
+    
     <table id="upp">
       <tr>
         <td>

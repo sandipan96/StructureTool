@@ -488,7 +488,18 @@ def windowsPDF(request,pk):
         stressSign = ">"
         stressSatisfied = "NOT OKAY"
         
-    
+    sectionMod = serviceMoment / maxPermStress
+    sectionModRounded = round(sectionMod, 2)
+
+    sectionModSign = "<"
+    sectionModSatisfied = "OKAY"
+    if sectionMod > float(wxx):
+        sectionModSign = ">"
+        sectionModSatisfied = "NOT OKAY"
+
+    ultimateCriteria = "satisfied"
+    if stressSatisfied == "NOT OKAY" or sectionModSatisfied == "NOT OKAY":
+        ultimateCriteria = "not satisfied"
 
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
     context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
@@ -497,7 +508,8 @@ def windowsPDF(request,pk):
                 'query_drawing' : query_drawing, 'today':today, 'finalMaxDeflRounded' : finalMaxDeflRounded, 'momentInertiaRounded':momentInertiaRounded,'inertiaSatisfied':inertiaSatisfied,
                 'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria, 'maxBendMomentRounded' : maxBendMomentRounded,
                 'liCoefSession': liCoefSession, 'mdCoefSession': mdCoefSession, 'serviceMomentRounded': serviceMomentRounded, 'maxPermStressRounded' : maxPermStressRounded,
-                'stressSign': stressSign, 'stressSatisfied': stressSatisfied, 'actualBendStressRounded':actualBendStressRounded}
+                'stressSign': stressSign, 'stressSatisfied': stressSatisfied, 'actualBendStressRounded':actualBendStressRounded, 'sectionModRounded':sectionModRounded, 'sectionModSign': sectionModSign,
+                'sectionModSatisfied' : sectionModSatisfied, 'ultimateCriteria':ultimateCriteria} 
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

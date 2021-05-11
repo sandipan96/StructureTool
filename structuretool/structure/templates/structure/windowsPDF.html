@@ -86,8 +86,8 @@
     <p style = "padding-left: 20px;"><font size = "4">W<sub>xx</sub> : the resistance moment / sectional modulus of the section (cm<sup>3</sup>)</font></p>
     <p style = "padding-left: 20px;"><font size = "4">W<sub>xx</sub> : (provided) {{wxx}}(cm<sup>3</sup>)</font></p>
     <p style = "padding-left: 20px;"><font size = "4">Maximum Bending Moment : {{maxBendMomentRounded}} kg-cm</font></p>
-    <img src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig.jpeg" width = "390" height = "400">
-    <img src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig1.jpeg" width = "390" height = "400">
+    <img style = "margin-top: 5px;" src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig.jpeg" width = "390" height = "400">
+    <img style = "margin-top: 5px;" src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig1.jpeg" width = "390" height = "400">
     <hr style = "margin-top: 15px;">
     <p style = "text-align: center;">2</p>
     <br>
@@ -107,12 +107,11 @@
     <p style = "padding-left: 20px;"><font size = "4">Service Moment M<sup>*</sup> : &gamma;<sub>S</sub> * M  = {{serviceMomentRounded}} kg-cm</font></p>
     <p style = "padding-left: 20px;"><font size = "4">Maximum Permitted Stress &sigma;<sup>*</sup><sub>adm</sub> : &sigma;<sub>adm</sub> / &gamma;<sub>M</sub>  = {{maxPermStressRounded}} kg/cm<sup>2</sup></font></p>
     <p style = "padding-left: 20px;"><font size = "4">Actual Bend Stress &sigma; : M<sup>*</sup> / W<sub>xx</sub> = {{actualBendStressRounded}} kg/cm<sup>2</sup> 
-                                                      which is &nbsp; {{stressSign}} {{maxPermStressRounded}} kg/cm<sup>2</sup> ({{stressSatisfied}})</font></p>
-    <!--<p>System : {{system}}</p>
-    <p>System Name: {{systemName}}</p>
-    <p>Ixx = {{ixx}} </p>
-    <p>Wxx = {{wxx}} </p>
-    <img src = '{{query_drawing.drawing.path}}'> -->
+                                                      &nbsp;&nbsp;&nbsp;which is &nbsp; {{stressSign}} &nbsp; {{maxPermStressRounded}} kg/cm<sup>2</sup> ({{stressSatisfied}})</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Sectional Modulus Required : M<sup>*</sup> / &sigma;<sup>*</sup><sub>adm</sub> = {{sectionModRounded}} cm<sup>3</sup> 
+                                                      &nbsp;&nbsp;&nbsp;which is &nbsp; {{sectionModSign}} &nbsp; {{wxx}} cm<sup>3</sup> ({{sectionModSatisfied}})</font></p>
+    <p style = "padding-left: 20px;"><font size = "5"><b><i>Therefore, Ultimate Limit States criteria is {{ultimateCriteria}}</i></b></font></p>                                                                                                
+    
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

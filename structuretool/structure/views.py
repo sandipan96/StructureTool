@@ -362,8 +362,15 @@ def windowsPDF(request,pk):
     rwidthSession = request.session['rwidthSession']
     liCoefSession = request.session['liCoefSession']
     mdCoefSession = request.session['mdCoefSession']
+    shapeChoiceSession = request.session['shapeChoiceSession']
     query_result = ProjectDetails.objects.get(pk = pk)
     today = date.today()
+    if request.method == 'POST':
+        system = request.POST.get('sectionview')
+        systemName = request.POST.get('sectionNames')
+        ixx = request.POST.get('property1')
+        wxx = request.POST.get('property2')
+        sectionDrawing = request.POST.get('sectionDrawing')
 
     finalMaxDefl = 0
     maxDefl = (float(lengthSession)/float(maxDeflectionSession)) * 1000
@@ -378,15 +385,36 @@ def windowsPDF(request,pk):
     loadWidth = (float(lwidthSession)/2) + (float(rwidthSession)/2)
     windPressure = float(windLoadSession) * 0.000010197162129779
     w = windPressure * loadWidth * 100
-    momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
-    momentInertiaRounded = round(momentInertia,2) 
+    
 
-    if request.method == 'POST':
-        system = request.POST.get('sectionview')
-        systemName = request.POST.get('sectionNames')
-        ixx = request.POST.get('property1')
-        wxx = request.POST.get('property2')
-        sectionDrawing = request.POST.get('sectionDrawing')
+     #change based on shape
+    #rectangle shape
+    print(shapeChoiceSession)
+    if shapeChoiceSession == "Rectangular":
+        momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
+        momentInertiaRounded = round(momentInertia,2)    
+        fActual = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * float(ixx))
+        fActualRounded = round(fActual,2)
+        maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
+        maxBendMomentRounded = round(maxBendMoment,2)
+    elif shapeChoiceSession == "Trapezoidal":
+        if float(lengthSession) <= float(lwidthSession) and float(lengthSession) <= float(rwidthSession):
+            momentInertia = (windPressure * (float(lengthSession) * 100)**3) / (60 * 700000 * finalMaxDefl)
+            print(momentInertia)
+            momentInertiaRounded = round(momentInertia,2) 
+            fActual = (windPressure * (float(lengthSession) * 100)**3) / (60 * 700000 * float(ixx))
+            fActualRounded = round(fActual,2)
+            maxBendMoment = (windPressure * (float(lengthSession) * 100))/6
+            maxBendMomentRounded = round(maxBendMoment,2)  
+        else:
+            momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
+            momentInertiaRounded = round(momentInertia,2) 
+            fActual = 10
+            maxBendMoment = 1000
+            maxBendMomentRounded = round(maxBendMoment,2)
+            fActualRounded = round(fActual,2)
+
+    
 
     inertiaSatisfied = "OKAY"
     inertiaSign = ">"
@@ -395,14 +423,8 @@ def windowsPDF(request,pk):
         inertiaSatisfied = "NOT OKAY"
         inertiaSign = "<"
 
-    #change based on shape
-    #rectangle shape
-    fActual = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * float(ixx))
-    fActualRounded = round(fActual,2)
-
-    maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
-    maxBendMomentRounded = round(maxBendMoment,2)
-
+   
+    
     deflSatisfied = "OKAY"
     deflSign = "<"
 
@@ -496,7 +518,7 @@ def windowsPDF(request,pk):
         ultimateCriteria = "not satisfied"
 
     query_drawing = SectionLibrary.objects.get(sectionName = systemName)
-    context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 
+    context = {'alloygradeSession':alloygradeSession, 'alloyStrengthSession': alloyStrengthSession, 'bendStressSession': bendStressSession, 'shapeChoiceSession':shapeChoiceSession,
                 'lengthSession': lengthSession, 'lwidthSession' : lwidthSession, 'rwidthSession' : rwidthSession, 'system':system, 'systemName':systemName, 
                 'maxDeflectionSession': maxDeflectionSession, 'maxDeflection2Session': maxDeflection2Session,'ixx':ixx, 'wxx':wxx, 'sectionDrawing':sectionDrawing, 'query_result':query_result, 
                 'query_drawing' : query_drawing, 'today':today, 'finalMaxDeflRounded' : finalMaxDeflRounded, 'momentInertiaRounded':momentInertiaRounded,'inertiaSatisfied':inertiaSatisfied,

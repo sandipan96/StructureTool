@@ -47,9 +47,8 @@
     <p style = "padding-left: 20px;"><font size = "4">Required Moment of Intertia &GreaterEqual; {{momentInertiaRounded}} cm<sup>4</sup> </font></p>
     <hr style = "margin-bottom: 30px;">
     <h3 style = "padding-left: 20px; margin-bottom: 20px;"><font size = "6">Check For Serviceability Limit State (Deflection) : </font> </h3>
-    <p style = "padding-left: 20px;"><font size = "4">Combined Interia of the Select  &nbsp; I<sub>xx</sub> = {{ixx}} cm<sup>4</sup> </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">(Please refer to the drawings)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{inertiaSign}} &nbsp;{{momentInertiaRounded}} cm<sup>4</sup> ({{inertiaSatisfied}}) </font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Actual Deflection f <sub>actual</sub> = {{fActualRounded}} cm  which is {{deflSign}} {{finalMaxDeflRounded}} cm ({{deflSatisfied}})</font>  </p>
+    <p style = "padding-left: 20px;"><font size = "4">Combined Interia of the Select  &nbsp; I<sub>xx</sub> = {{ixx}} cm<sup>4</sup> &nbsp;&nbsp;&nbsp; which is &nbsp; {{inertiaSign}} &nbsp;{{momentInertiaRounded}} cm<sup>4</sup> ({{inertiaSatisfied}}) </font></p>
+    <p style = "padding-left: 20px; margin-bottom : 0px;"><font size = "4">Actual Deflection f <sub>actual</sub> = {{fActualRounded}} cm  &nbsp;&nbsp;&nbsp; which is &nbsp; {{deflSign}} {{finalMaxDeflRounded}} cm ({{deflSatisfied}})</font>  </p>
     <table id="upp" style = "border: 1px solid black;">
       <tr>
         <td><font size = "6">{{deflCriteria}}</font></td>
@@ -89,6 +88,24 @@
     <p style = "padding-left: 20px;"><font size = "4">Maximum Bending Moment : {{maxBendMomentRounded}} kg-cm</font></p>
     <img src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig.jpeg" width = "390" height = "400">
     <img src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig1.jpeg" width = "390" height = "400">
+    <hr style = "margin-top: 15px;">
+    <p style = "text-align: center;">2</p>
+    <br>
+    <table id="upp">
+      <tr>
+        <td>
+          <img class = "alignleft" src= "D:\MyProjects\tool\structuretool\structure\static\structure\logo3.png" width = "70" height = "25">
+        </td>
+        <td> <h1 class = "alignright"> <font size="7">Structural Analysis Report</font></h1></td>
+        <td><font size = "4">{{today}}</font></td>
+      </tr>
+    </table>
+    <hr style = "margin-bottom: 30px;">
+    <p style = "padding-left: 20px;"><font size = "4">&gamma;<sub>S</sub> : Load Increase Coefficient = {{liCoefSession}}</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">&gamma;<sub>M</sub> : Material Decrease Coefficient = {{mdCoefSession}}</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Sectional Modulus W<sub>xx</sub> provided = {{wxx}}</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Service Moment M<sup>*</sup> : &gamma;<sub>S</sub> * M  = {{serviceMomentRounded}} kg-cm</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Maximum Permitted Stress &sigma;<sup>*</sup><sub>adm</sub> : &sigma;<sub>adm</sub> / &gamma;<sub>M</sub>  = {{maxPermStressRounded}} kg/cm<sup>2</sup></font></p>
     
     <!--<p>System : {{system}}</p>
     <p>System Name: {{systemName}}</p>

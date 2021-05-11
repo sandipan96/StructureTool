@@ -286,9 +286,5 @@ body {
     padding-right: 100px;
   }
 
-  #newtable {
-    -pdf-keep-with-next: true;
-    width : 100%;
-    margin-top:10px;
-  }
+
 

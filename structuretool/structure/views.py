@@ -386,6 +386,7 @@ def windowsPDF(request,pk):
     windPressure = float(windLoadSession) * 0.000010197162129779
     w = windPressure * loadWidth * 100
     
+    diagramPath = ""
 
      #change based on shape
     #rectangle shape
@@ -397,6 +398,7 @@ def windowsPDF(request,pk):
         fActualRounded = round(fActual,2)
         maxBendMoment = (w * (float(lengthSession) * 100) ** 2)/8
         maxBendMomentRounded = round(maxBendMoment,2)
+        diagramPath = "D:\MyProjects\\tool\structuretool\structure\static\structure\deflRectangle.JPG"
     elif shapeChoiceSession == "Trapezoidal":
         if float(lengthSession) <= float(lwidthSession) and float(lengthSession) <= float(rwidthSession):
             momentInertia = (windPressure * (float(lengthSession) * 100)**3) / (60 * 700000 * finalMaxDefl)
@@ -405,7 +407,8 @@ def windowsPDF(request,pk):
             fActual = (windPressure * (float(lengthSession) * 100)**3) / (60 * 700000 * float(ixx))
             fActualRounded = round(fActual,2)
             maxBendMoment = (windPressure * (float(lengthSession) * 100))/6
-            maxBendMomentRounded = round(maxBendMoment,2)  
+            maxBendMomentRounded = round(maxBendMoment,2)
+            diagramPath = "D:/MyProjects/tool/structuretool/structure/static/structure/deflTriangle.JPG"  
         else:
             momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
             momentInertiaRounded = round(momentInertia,2) 
@@ -413,7 +416,8 @@ def windowsPDF(request,pk):
             maxBendMoment = 1000
             maxBendMomentRounded = round(maxBendMoment,2)
             fActualRounded = round(fActual,2)
-
+            diagramPath = "D:\MyProjects\\tool\structuretool\structure\static\structure\deflDummy.JPG"
+    print(diagramPath)
     
 
     inertiaSatisfied = "OKAY"
@@ -525,7 +529,7 @@ def windowsPDF(request,pk):
                 'inertiaSign':inertiaSign, 'fActualRounded':fActualRounded,'deflSatisfied':deflSatisfied,'deflSign':deflSign,'deflCriteria':deflCriteria, 'maxBendMomentRounded' : maxBendMomentRounded,
                 'liCoefSession': liCoefSession, 'mdCoefSession': mdCoefSession, 'serviceMomentRounded': serviceMomentRounded, 'maxPermStressRounded' : maxPermStressRounded,
                 'stressSign': stressSign, 'stressSatisfied': stressSatisfied, 'actualBendStressRounded':actualBendStressRounded, 'sectionModRounded':sectionModRounded, 'sectionModSign': sectionModSign,
-                'sectionModSatisfied' : sectionModSatisfied, 'ultimateCriteria':ultimateCriteria} 
+                'sectionModSatisfied' : sectionModSatisfied, 'ultimateCriteria':ultimateCriteria, 'diagramPath':diagramPath} 
                 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

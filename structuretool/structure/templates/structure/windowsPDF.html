@@ -88,8 +88,17 @@
     <p style = "padding-left: 20px;"><font size = "4">W<sub>xx</sub> : the resistance moment / sectional modulus of the section (cm<sup>3</sup>)</font></p>
     <p style = "padding-left: 20px;"><font size = "4">W<sub>xx</sub> : (provided) {{wxx}}(cm<sup>3</sup>)</font></p>
     <p style = "padding-left: 20px;"><font size = "4">Maximum Bending Moment : {{maxBendMomentRounded}} kg-cm</font></p>
-    <img style = "margin-top: 5px;" src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig.jpeg" width = "390" height = "250">
-    <img style = "margin-top: 5px;" src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig1.jpeg" width = "390" height = "250">
+    <p style = "padding-left: 20px;"><font size = "4">&gamma;<sub>S</sub> : Load Increase Coefficient = {{liCoefSession}}</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">&gamma;<sub>M</sub> : Material Decrease Coefficient = {{mdCoefSession}}</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Sectional Modulus W<sub>xx</sub> provided = {{wxx}}</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Service Moment M<sup>*</sup> : &gamma;<sub>S</sub> * M  = {{serviceMomentRounded}} kg-cm</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Maximum Permitted Stress &sigma;<sup>*</sup><sub>adm</sub> : &sigma;<sub>adm</sub> / &gamma;<sub>M</sub>  = {{maxPermStressRounded}} kg/cm<sup>2</sup></font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Actual Bend Stress &sigma; : M<sup>*</sup> / W<sub>xx</sub> = {{actualBendStressRounded}} kg/cm<sup>2</sup> 
+                                                      &nbsp;&nbsp;&nbsp;which is &nbsp; {{stressSign}} &nbsp; {{maxPermStressRounded}} kg/cm<sup>2</sup> ({{stressSatisfied}})</font></p>
+    <p style = "padding-left: 20px;"><font size = "4">Sectional Modulus Required : M<sup>*</sup> / &sigma;<sup>*</sup><sub>adm</sub> = {{sectionModRounded}} cm<sup>3</sup> 
+                                                      &nbsp;&nbsp;&nbsp;which is &nbsp; {{sectionModSign}} &nbsp; {{wxx}} cm<sup>3</sup> ({{sectionModSatisfied}})</font></p>
+    <p style = "padding-left: 20px;"><font size = "5"><b><i>Therefore, Ultimate Limit States criteria is {{ultimateCriteria}}</i></b></font></p>
+    <br>
     <hr style = "margin-top: 15px;">
     <p style = "text-align: center;">2</p>
     <table id="upp">
@@ -102,17 +111,12 @@
       </tr>
     </table>
     <hr style = "margin-bottom: 30px;">
-    <p style = "padding-left: 20px;"><font size = "4">&gamma;<sub>S</sub> : Load Increase Coefficient = {{liCoefSession}}</font></p>
-    <p style = "padding-left: 20px;"><font size = "4">&gamma;<sub>M</sub> : Material Decrease Coefficient = {{mdCoefSession}}</font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Sectional Modulus W<sub>xx</sub> provided = {{wxx}}</font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Service Moment M<sup>*</sup> : &gamma;<sub>S</sub> * M  = {{serviceMomentRounded}} kg-cm</font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Maximum Permitted Stress &sigma;<sup>*</sup><sub>adm</sub> : &sigma;<sub>adm</sub> / &gamma;<sub>M</sub>  = {{maxPermStressRounded}} kg/cm<sup>2</sup></font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Actual Bend Stress &sigma; : M<sup>*</sup> / W<sub>xx</sub> = {{actualBendStressRounded}} kg/cm<sup>2</sup> 
-                                                      &nbsp;&nbsp;&nbsp;which is &nbsp; {{stressSign}} &nbsp; {{maxPermStressRounded}} kg/cm<sup>2</sup> ({{stressSatisfied}})</font></p>
-    <p style = "padding-left: 20px;"><font size = "4">Sectional Modulus Required : M<sup>*</sup> / &sigma;<sup>*</sup><sub>adm</sub> = {{sectionModRounded}} cm<sup>3</sup> 
-                                                      &nbsp;&nbsp;&nbsp;which is &nbsp; {{sectionModSign}} &nbsp; {{wxx}} cm<sup>3</sup> ({{sectionModSatisfied}})</font></p>
-    <p style = "padding-left: 20px;"><font size = "5"><b><i>Therefore, Ultimate Limit States criteria is {{ultimateCriteria}}</i></b></font></p>                                                                                                
-    
+    <h3 style = "padding-left: 20px;"><font size = "6"> Diagrams (under design wind load): </font> </h3>                                                                                                
+    <img style = "margin-top: 5px;" src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig.jpeg" width = "390" height = "400">
+    <img style = "margin-top: 5px;" src= "D:\MyProjects\tool\structuretool\structure\static\structure\fig1.jpeg" width = "390" height = "400">
+    <br /><br /><br />
+    <hr style = "margin-top: 15px;">
+    <p style = "text-align: center;">3</p>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

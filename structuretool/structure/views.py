@@ -389,8 +389,9 @@ def windowsPDF(request,pk):
     diagramPath = ""
 
      #change based on shape
-    #rectangle shape
+    
     print(shapeChoiceSession)
+    #Rectangular
     if shapeChoiceSession == "Rectangular":
         momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
         momentInertiaRounded = round(momentInertia,2)    
@@ -400,16 +401,18 @@ def windowsPDF(request,pk):
         maxBendMomentRounded = round(maxBendMoment,2)
         diagramPath = "D:\MyProjects\\tool\structuretool\structure\static\structure\deflRectangle.JPG"
     elif shapeChoiceSession == "Trapezoidal":
+        #Triangle ( need to double check)
         if float(lengthSession) <= float(lwidthSession) and float(lengthSession) <= float(rwidthSession):
-            momentInertia = (windPressure * (float(lengthSession) * 100)**3) / (60 * 700000 * finalMaxDefl)
+            momentInertia = (w * (float(lengthSession) * 100)**3) / (60 * 700000 * finalMaxDefl)
             print(momentInertia)
             momentInertiaRounded = round(momentInertia,2) 
-            fActual = (windPressure * (float(lengthSession) * 100)**3) / (60 * 700000 * float(ixx))
+            fActual = (w * (float(lengthSession) * 100)**3) / (60 * 700000 * float(ixx))
             fActualRounded = round(fActual,2)
-            maxBendMoment = (windPressure * (float(lengthSession) * 100))/6
+            maxBendMoment = (w * (float(lengthSession) * 100))/6
             maxBendMomentRounded = round(maxBendMoment,2)
             diagramPath = "D:/MyProjects/tool/structuretool/structure/static/structure/deflTriangle.JPG"  
         else:
+            #Trapezoidal ( need to double check)
             momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
             momentInertiaRounded = round(momentInertia,2) 
             fActual = 10

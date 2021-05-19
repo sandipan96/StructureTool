@@ -413,9 +413,9 @@ def windowsPDF(request,pk):
             diagramPath = "D:/MyProjects/tool/structuretool/structure/static/structure/deflTriangle.JPG"  
         else:
             #Trapezoidal ( need to double check)
-            momentInertia = (5 * w * (float(lengthSession) * 100)**4)/(384 * 700000 * finalMaxDefl)
+            momentInertia = (w * (float(lengthSession) * 100)**4 * (25-(40 * (float(lwidthSession)/(float(lengthSession))**2) + (16 * (float(lwidthSession)/(float(lengthSession))**4)))))/(1920 * 700000 * finalMaxDefl)
             momentInertiaRounded = round(momentInertia,2) 
-            fActual = 10
+            fActual = (w * (float(lengthSession) * 100)**4 * (25-(40 * (float(lwidthSession)/(float(lengthSession))**2) + (16 * (float(lwidthSession)/(float(lengthSession))**4)))))/(1920 * 700000 * float(ixx))
             maxBendMoment = 1000
             maxBendMomentRounded = round(maxBendMoment,2)
             fActualRounded = round(fActual,2)

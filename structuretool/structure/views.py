@@ -403,10 +403,10 @@ def windowsPDF(request,pk):
     elif shapeChoiceSession == "Trapezoidal":
         #Triangle ( need to double check)
         if float(lengthSession) <= float(lwidthSession) and float(lengthSession) <= float(rwidthSession):
-            momentInertia = (w * (float(lengthSession) * 100)**3) / (60 * 700000 * finalMaxDefl)
+            momentInertia = (w * (float(lengthSession) * 100)**4) / (60 * 700000 * finalMaxDefl)
             print(momentInertia)
             momentInertiaRounded = round(momentInertia,2) 
-            fActual = (w * (float(lengthSession) * 100)**3) / (60 * 700000 * float(ixx))
+            fActual = (w * (float(lengthSession) * 100)**4) / (60 * 700000 * float(ixx))
             fActualRounded = round(fActual,2)
             maxBendMoment = (w * (float(lengthSession) * 100))/6
             maxBendMomentRounded = round(maxBendMoment,2)
@@ -452,7 +452,7 @@ def windowsPDF(request,pk):
         zeroline = False,
     )
     fig.update_yaxes(
-        range = [0,maxBendMoment + 5000],
+        range = [0,maxBendMoment],
         zeroline = False,
     )
     paths = "M 0,0 Q {},{} {},0".format((float(lengthSession) * 100)/2,maxBendMoment*2,float(lengthSession) * 100)

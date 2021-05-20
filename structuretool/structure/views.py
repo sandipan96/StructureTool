@@ -288,28 +288,6 @@ def sectionView(request,pk):
         rwidth = request.POST.get('rwidth')
         request.session['rwidthSession'] = rwidth
 
-        
-    # np.random.seed(1)
-
-    # N = 100
-    # x = np.random.rand(N)
-    # y = np.random.rand(N)
-    # colors = np.random.rand(N)
-    # sz = np.random.rand(N) * 30
-
-    # fig = go.Figure()
-    # fig.add_trace(go.Scatter(
-    #     x=x,
-    #     y=y,
-    #     mode="markers",
-    #     marker=go.scatter.Marker(
-    #         size=sz,
-    #         color=colors,
-    #         opacity=0.6,
-    #         colorscale="Viridis"
-    #     )
-    # ))
-    # fig.write_image("structure/static/structure/fig1.jpeg")
 
         
     query = SectionLibrary.objects.all()
@@ -318,36 +296,7 @@ def sectionView(request,pk):
                 'mdCoef':mdCoef, 'length':length, 'lwidth':lwidth, 'rwidth':rwidth}
     return render(request,'structure/sectionView.html',context)
 
-# def link_callback(uri, rel):
-#             """
-#             Convert HTML URIs to absolute system paths so xhtml2pdf can access those
-#             resources
-#             """
-#             result = finders.find(uri)
-#             if result:
-#                     if not isinstance(result, (list, tuple)):
-#                             result = [result]
-#                     result = list(os.path.realpath(path) for path in result)
-#                     path=result[0]
-#             else:
-#                     sUrl = settings.STATIC_URL        # Typically /static/
-#                     sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
-#                     mUrl = settings.MEDIA_URL         # Typically /media/
-#                     mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
 
-#                     if uri.startswith(mUrl):
-#                             path = os.path.join(mRoot, uri.replace(mUrl, ""))
-#                     elif uri.startswith(sUrl):
-#                             path = os.path.join(sRoot, uri.replace(sUrl, ""))
-#                     else:
-#                             return uri
-
-#             # make sure that file exists
-#             if not os.path.isfile(path):
-#                     raise Exception(
-#                             'media URI must start with %s or %s' % (sUrl, mUrl)
-#                     )
-#             return path
 
 def windowsPDF(request,pk):
     template_path = "structure/windowsPDF.html"

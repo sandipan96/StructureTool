@@ -321,6 +321,8 @@ def windowsPDF(request,pk):
         wxx = request.POST.get('property2')
         sectionDrawing = request.POST.get('sectionDrawing')
 
+    #calculating max Deflection
+    #return rounded version for PDF report
     finalMaxDefl = 0
     maxDefl = (float(lengthSession)/float(maxDeflectionSession)) * 1000
     if maxDefl < float(maxDeflection2Session):
@@ -373,6 +375,7 @@ def windowsPDF(request,pk):
     print(diagramPath)
     
 
+    #check intertia satisfactory criteria. Changing comparison sign accordingly
     inertiaSatisfied = "OKAY"
     inertiaSign = ">"
 
@@ -381,7 +384,7 @@ def windowsPDF(request,pk):
         inertiaSign = "<"
 
    
-    
+    #check deflection satisfactory criteria. Changing comparison sign accordingly
     deflSatisfied = "OKAY"
     deflSign = "<"
 
@@ -396,6 +399,7 @@ def windowsPDF(request,pk):
     else:
         deflCriteria = "CRITERIA NOT SATISFIED"
 
+    #Bending Moment Graph
     fig = go.Figure()
     fig.update_xaxes(
         range = [0,(float(lengthSession) * 100) + 50 ],
@@ -421,7 +425,7 @@ def windowsPDF(request,pk):
     fig.add_hline(y = maxBendMoment, line_dash = "dash")
     fig.write_image("structure/static/structure/fig.jpeg")
 
-
+    #Deflection graph
     fig1 = go.Figure()
     fig1.update_xaxes(
         range = [0,(float(lengthSession) * 100) + 50 ],

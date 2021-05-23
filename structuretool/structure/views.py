@@ -262,6 +262,7 @@ class SectionUpdateView(UserPassesTestMixin, UpdateView):
 def sectionView(request,pk):
     sections = SectionLibrary.objects.values_list("system", flat = True).distinct()
     sectionNames = SectionLibrary.objects.values_list("sectionName")
+    #create and store data in session variables
     if request.method == 'POST':
         alloygrade = request.POST.get('alloygrade')
         request.session['alloygradeSession'] = alloygrade
@@ -474,6 +475,7 @@ def windowsPDF(request,pk):
         sectionModSign = ">"
         sectionModSatisfied = "NOT OKAY"
 
+    #ultimate stress criteria check based on Bend Stress and Section Modulus
     ultimateCriteria = "satisfied"
     if stressSatisfied == "NOT OKAY" or sectionModSatisfied == "NOT OKAY":
         ultimateCriteria = "not satisfied"

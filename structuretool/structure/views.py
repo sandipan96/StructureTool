@@ -337,8 +337,9 @@ def windowsPDF(request,pk):
     
     diagramPath = ""
 
-     #change based on shape
     
+    #change moment interia and max bending moment based on shape
+    #change diagram based on shape
     print(shapeChoiceSession)
     #Rectangular
     if shapeChoiceSession == "Rectangular":
